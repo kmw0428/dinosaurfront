@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { DUMMY_DINOSAURS } from "./Dino_Info";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 // 공룡 데이터의 타입 정의
 interface Dinosaur {
@@ -21,10 +21,19 @@ function DinosaurList(): JSX.Element {
   const [selectedDinoId, setSelectedDinoId] = useState<number | null>(null);
 
   useEffect(() => {
-    // 임시 데이터를 상태에 설정
-    // 실제 애플리케이션에서는 여기서 API 호출을 통해 데이터를 불러옵니다.
-    setDinosaurs(DUMMY_DINOSAURS);
-  }, []);
+    const fetchData = async () => {
+      try {
+        // API 호출
+        const response = await axios.get("http://localhost:8080/api/dinolist");
+        // 응답 데이터로 상태 업데이트
+        setDinosaurs(response.data);
+      } catch (error) {
+        console.error("API 호출 중 오류 발생:", error);
+      }
+    };
+
+    fetchData();
+  }, []); // 의존성 배열을 빈 배열로 설정하여 컴포넌트 마운트 시에만 호출
 
   const handleSelectDino = (id: number) => {
     if (selectedDinoId === id) {
