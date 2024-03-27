@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 interface Dinosaur {
   dinoSpecies: string;
@@ -36,11 +37,15 @@ function Dino_Add(): JSX.Element {
     }));
   };
 
-  const handleSubmitNewDino = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmitNewDino = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    if (window.confirm("Are you sure you want to save?")) {
-      console.log(newDino);
+    try {
+      await axios.post("http://localhost:8080/api/dinolist", newDino);
+      alert("Dinosaur added successfully!");
       navigate("/dino");
+    } catch (error) {
+      console.error("Failed to add dinosaur", error);
+      alert("Failed to add dinosaur.");
     }
   };
 
