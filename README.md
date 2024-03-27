@@ -1,5 +1,8 @@
+## V 1.02 Simple Login/Signup page
+npm install axios
+
 ## V 1.01 Frontend Start
-npm install react-router-dom 필수
+npm install react-router-dom
 
 # Getting Started with Create React App
 
