@@ -18,6 +18,9 @@ const Home: React.FC = () => {
     <div>
       <h1>Welcome to the HomePage</h1>
       <p>You have visited this page {visits} times.</p>
+      <a href='/dino'>공룡 목록</a><br />
+      <a href='/emp'>직원 목록</a><br />
+      <a href='/login'>login&Signup</a>
     </div>
   );
 }

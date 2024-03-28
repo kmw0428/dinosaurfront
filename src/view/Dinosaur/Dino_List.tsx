@@ -24,7 +24,7 @@ function DinosaurList(): JSX.Element {
     const fetchData = async () => {
       try {
         // API 호출
-        const response = await axios.get("http://localhost:8080/api/dinolist");
+        const response = await axios.get("http://localhost:8080/api/dinosaur");
         // 응답 데이터로 상태 업데이트
         setDinosaurs(response.data);
       } catch (error) {
@@ -43,11 +43,19 @@ function DinosaurList(): JSX.Element {
     }
   };
 
-  const handleDeleteDino = (dinoId: number) => {
+  const handleDeleteDino = async (dinoId: number) => {
     if (window.confirm("Are you sure you want to delete?")) {
-      //삭제 로직 구현
-      setDinosaurs(dinosaurs.filter((dino) => dino.id !== dinoId));
-      setSelectedDinoId(null); // 선택된 공룡을 null로 설정하여 UI에서 제거
+      try {
+        // 삭제 요청을 서버에 보냅니다.
+        await axios.delete(`http://localhost:8080/api/dinosaur/${dinoId}`);
+        alert("Dinosaur deleted successfully!");
+  
+        setDinosaurs(dinosaurs.filter((dino) => dino.id !== dinoId));
+        setSelectedDinoId(null);
+      } catch (error) {
+        console.error("Failed to delete dinosaur", error);
+        alert("Failed to delete dinosaur.");
+      }
     }
   };
 
