@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 interface Employee {
   empName: string;
@@ -9,11 +10,12 @@ interface Employee {
   empPhone: string;
   empAddress: string;
   empBirth: string;
-  empWorkYear: string;
+  empWorkYear: number;
 }
 
-const Emp_Add: React.FC = () => {
+function Emp_Add(): JSX.Element {
   const navigate = useNavigate();
+
   const [newEmp, setNewEmp] = useState<Employee>({
     empName: "",
     empPosition: "",
@@ -22,7 +24,7 @@ const Emp_Add: React.FC = () => {
     empPhone: "",
     empAddress: "",
     empBirth: "",
-    empWorkYear: "",
+    empWorkYear: 0,
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,11 +35,15 @@ const Emp_Add: React.FC = () => {
     }));
   };
 
-  const handleSubmitNewEmp = (e: React.FormEvent) => {
+  const handleSubmitNewEmp = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
-    if (window.confirm("Are you sure you want to save?")) {
-      console.log(newEmp);
+    try {
+      await axios.post("http://localhost:8080/api/employees", newEmp);
+      alert("Employee added successfully!");
       navigate("/emp");
+    } catch (error) {
+      console.error("Failed to add employee", error);
+      alert("Failed to add employee.");
     }
   };
 
@@ -147,7 +153,7 @@ const Emp_Add: React.FC = () => {
               </td>
               <td>
                 <input
-                  type="text"
+                  type="date"
                   id="empBirth"
                   name="empBirth"
                   value={newEmp.empBirth}

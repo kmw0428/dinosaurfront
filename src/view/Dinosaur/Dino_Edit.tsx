@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { DUMMY_DINOSAURS } from "./Dino_Info";
+import axios from "axios";
 
 // 공룡 데이터에 대한 타입 정의
 interface DinoData {
@@ -16,15 +16,13 @@ interface DinoData {
 }
 
 const Dino_Edit: React.FC = () => {
-  const { id } = useParams<{id: string}>(); // useParams 타입 지정
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  
-  // 상태의 타입을 DinoData로 지정
   const [dinoData, setDinoData] = useState<DinoData>({
-    dinoSpecies: "",
-    dinoEra: "",
-    dinoType: "",
-    dinoFeature: "",
+    dinoSpecies: '',
+    dinoEra: '',
+    dinoType: '',
+    dinoFeature: '',
     dinoSize: 0,
     dinoWeight: 0,
     dinoDangerLevel: 0,
@@ -32,12 +30,16 @@ const Dino_Edit: React.FC = () => {
   });
 
   useEffect(() => {
-    const dino = DUMMY_DINOSAURS.find(dino => dino.id === parseInt(id!)); // id의 타입 단언
-    if (dino) {
-      setDinoData(dino);
-    } else {
-      navigate("/dino");
-    }
+    const fetchDinoData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/dinosaur/${id}`);
+        setDinoData(response.data);
+      } catch (error) {
+        console.error('공룡 정보 불러오기 실패:', error);
+      }
+    };
+
+    fetchDinoData();
   }, [id, navigate]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,11 +50,15 @@ const Dino_Edit: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (window.confirm("Are you sure you want to save?")) {
-      console.log(dinoData);
-      navigate("/dino");
+    if (window.confirm("저장하시겠습니까?")) {
+      try {
+        await axios.put(`http://localhost:8080/api/dinosaur/${id}`, dinoData);
+        navigate('/dino');
+      } catch (error) {
+        console.error('공룡 정보 업데이트 실패:', error);
+      }
     }
   };
 

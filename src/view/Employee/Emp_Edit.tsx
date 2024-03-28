@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { DUMMY_EMPLOYEES } from "./Emp_Info";
+import axios from "axios";
 
 // Employee 인터페이스 선언
 interface Employee {
@@ -17,7 +17,7 @@ interface Employee {
 
 const Emp_Edit: React.FC = () => {
   // useParams 훅을 사용하여 URL 파라미터(id) 추출
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   // useNavigate 훅을 사용하여 라우터 내비게이션 기능 활성화
   const navigate = useNavigate();
   
@@ -35,12 +35,16 @@ const Emp_Edit: React.FC = () => {
 
   // useEffect 훅을 사용하여 컴포넌트가 마운트되었을 때 한 번만 실행되는 로직 정의
   useEffect(() => {
-    const emp = DUMMY_EMPLOYEES.find((emp) => emp.id === parseInt(id!));
-    if (emp) {
-      setEmpData(emp);
-    } else {
-      navigate("/emp");
-    }
+    const fetchDinoData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/employees/${id}`);
+        setEmpData(response.data);
+      } catch (error) {
+        console.error('직원 정보 불러오기 실패:', error);
+      }
+    };
+
+    fetchDinoData();
   }, [id, navigate]);
 
   // 입력 필드 값 변경 시 상태 업데이트 함수
@@ -53,11 +57,15 @@ const Emp_Edit: React.FC = () => {
   };
 
   // 폼 제출 시 처리 함수
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (window.confirm("Are you sure you want to save?")) {
-      console.log(empData);
-      navigate("/emp");
+    if (window.confirm("저장하시겠습니까?")) {
+      try {
+        await axios.put(`http://localhost:8080/api/employees/${id}`, empData);
+        navigate('/emp');
+      } catch (error) {
+        console.error('직원 정보 업데이트 실패:', error);
+      }
     }
   };
 

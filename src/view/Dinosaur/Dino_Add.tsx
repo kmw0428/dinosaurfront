@@ -7,10 +7,10 @@ interface Dinosaur {
   dinoEra: string;
   dinoType: string;
   dinoFeature: string;
-  dinoSize: string;
-  dinoWeight: string;
-  dinoDangerLevel: string;
-  dinoHealthStatus: string;
+  dinoSize: number;
+  dinoWeight: number;
+  dinoDangerLevel: number;
+  dinoHealthStatus: number;
 }
 
 function Dino_Add(): JSX.Element {
@@ -21,10 +21,10 @@ function Dino_Add(): JSX.Element {
     dinoEra: "",
     dinoType: "",
     dinoFeature: "",
-    dinoSize: "",
-    dinoWeight: "",
-    dinoDangerLevel: "",
-    dinoHealthStatus: "",
+    dinoSize: 0,
+    dinoWeight: 0,
+    dinoDangerLevel: 0,
+    dinoHealthStatus: 0,
   });
 
   const handleInputChange = (
@@ -40,7 +40,7 @@ function Dino_Add(): JSX.Element {
   const handleSubmitNewDino = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8080/api/dinolist", newDino);
+      await axios.post("http://localhost:8080/api/dinosaur", newDino);
       alert("Dinosaur added successfully!");
       navigate("/dino");
     } catch (error) {
