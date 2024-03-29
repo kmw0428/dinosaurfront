@@ -1,3 +1,4 @@
+## V 1.06 회원가입 연동 및 SweetAlert2 사용
 npm install sweetalert2-react-content\
 npm install bootstrap\
 npm install react-bootstrap bootstrap
