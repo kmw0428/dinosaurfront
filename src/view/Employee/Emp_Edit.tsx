@@ -175,7 +175,7 @@ const Emp_Edit: React.FC = () => {
               </td>
               <td>
                 <input
-                  type="text"
+                  type="date"
                   id="empBirth"
                   name="empBirth"
                   value={empData.empBirth}

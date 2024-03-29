@@ -82,3 +82,7 @@
   .change {
     color: rgb(67, 178, 241);
   }
+
+  .error-message {
+    color: red;
+  }

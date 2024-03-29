@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS
+import "bootstrap/dist/js/bootstrap.bundle.min"; // Bootstrap JS
+import Swal from "sweetalert2";
+import withReactContent from 'sweetalert2-react-content';
 
 // 공룡 데이터의 타입 정의
 interface Dinosaur {
@@ -15,6 +19,8 @@ interface Dinosaur {
   dinoHealthStatus: number;
 }
 
+const MySwal = withReactContent(Swal);
+
 function DinosaurList(): JSX.Element {
   // 상태 관리
   const [dinosaurs, setDinosaurs] = useState<Dinosaur[]>([]);
@@ -28,7 +34,14 @@ function DinosaurList(): JSX.Element {
         // 응답 데이터로 상태 업데이트
         setDinosaurs(response.data);
       } catch (error) {
-        console.error("API 호출 중 오류 발생:", error);
+        MySwal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: 'API 호출 중 문제가 발생했습니다.',
+          confirmButtonText: '확인'
+        }).then(() => {
+          window.location.replace("/");
+      });
       }
     };
 
@@ -60,31 +73,30 @@ function DinosaurList(): JSX.Element {
   };
 
   return (
-    <div>
+    <div className="accordion" id="dinosaurAccordion">
       <h1>Dinosaur List</h1>
-      <ul>
-        {dinosaurs.map((dino) => (
-          <React.Fragment key={dino.id}>
-            <li
-              onClick={(e) => {
-                e.stopPropagation();
-                handleSelectDino(dino.id);
-              }}
-            >
-              {dino.dinoSpecies}
-              <Link to={`/dino/edit/${dino.id}`}>Edit</Link>
+        {dinosaurs.map((dino, index) => (
+          <div className="accordion-item" key={dino.id}>
+            <h2 className="accordion-header" id={`heading${index}`}>
               <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleDeleteDino(dino.id);
-                }}
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target={`#collapse${index}`}
+                aria-expanded="false"
+                aria-controls={`collapse${index}`}
               >
-                Delete
+                {dino.dinoSpecies}
               </button>
-            </li>
-            {selectedDinoId === dino.id && (
-              <div>
-                <h2>Selected Dinosaur</h2>
+            </h2>
+              
+            <div
+              id={`collapse${index}`}
+              className="accordian-collapse collapse"
+              aria-labelledby={`heading${index}`}
+              data-bs-parent="#dinosaurAccorion"
+            >
+              <div className="accordion body">
                 <p>Species: {dino.dinoSpecies}</p>
                 <p>Era: {dino.dinoEra}</p>
                 <p>Type: {dino.dinoType}</p>
@@ -93,13 +105,21 @@ function DinosaurList(): JSX.Element {
                 <p>Weight: {dino.dinoWeight}</p>
                 <p>Danger Level: {dino.dinoDangerLevel}</p>
                 <p>Health Status: {dino.dinoHealthStatus}</p>
+                <Link to={`/dino/edit/${dino.id}`} className="btn btn-primary">
+                  Edit
+                </Link>
+                <button
+                  className="btn btn-danger"
+                  onClick={(e) => handleDeleteDino(dino.id)}
+                >
+                  Delete
+                </button>
               </div>
-            )}
-          </React.Fragment>
+            </div>
+          </div>
         ))}
-      </ul>
       <div>
-        <Link to={'/dino/add'}>Add</Link>
+        <Link to={`/dino/add`}>Add</Link>
       </div>
     </div>
   );
