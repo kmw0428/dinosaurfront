@@ -1,3 +1,7 @@
+npm install sweetalert2-react-content
+npm install bootstrap
+npm install react-bootstrap bootstrap
+
 ## V 1.05 데이터베이스와 연동 및 삭제/추가/수정 기능 추가
 
 ## V 1.04 LocalData랑 연동
