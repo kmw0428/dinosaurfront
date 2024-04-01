@@ -1,4 +1,5 @@
 ## V 1.07 로그인 연동
+npm install typescript-cookie
 
 ## V 1.06 회원가입 연동 및 SweetAlert2 사용
 npm install sweetalert2-react-content\
