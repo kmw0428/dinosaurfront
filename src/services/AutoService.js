@@ -4,7 +4,7 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export const loginUser = async (username, password) => {
   try {
-    const response = await axios.post('http://localhost:8080/api/login', {
+    const response = await axios.post('http://localhost:8080/api/auth/signin', {
       username,
       password
     });
@@ -14,10 +14,10 @@ export const loginUser = async (username, password) => {
   }
 };
 
-export const registerUser = async (nickname, username, password) => {
+export const registerUser = async (email, username, password) => {
   try {
-    const response = await axios.post('http://localhost:8080/signup', {
-      nickname,
+    const response = await axios.post('http://localhost:8080/api/auth/signup', {
+      email,
       username,
       password 
     });
