@@ -38,16 +38,14 @@ const Loginpg: React.FC = () => {
 
     try {
       const response = await loginUser(username, password);
-      if (response.token) {
+      if (response.token && response.data.token) {
         // 로그인이 성공하고 서버에서 토큰을 반환한 경우
-        console.log("Login successful", response);
+        console.log("Login successful", response.data);
         // 토큰을 로컬 스토리지에 저장합니다.
-        localStorage.setItem("token", response.token);
-        if (isEmployee) {
-          navigate("/todolist");
-        } else {
-          navigate("/");
-        }
+        setCookie("token", response.data.token, { path: '/', maxAge: 3600 }); // maxAge는 토큰의 유효 시간(초 단위)
+        console.log("로그인 성공")
+        // 로그인 상태 관리 로직 실행 (예: 상태 업데이트)        
+        navigate(isEmployee ? "/todolist" : "/");
       } else {
         // 서버에서 토큰이 반환되지 않은 경우
         console.error("Token not found in response");
@@ -72,7 +70,7 @@ const Loginpg: React.FC = () => {
     const token = getCookie("token");
     if (token) {
       axios
-        .get("/api/profile", {
+        .get("/api/auth/signin", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
