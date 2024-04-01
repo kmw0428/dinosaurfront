@@ -1,3 +1,5 @@
+## V 1.08 EmpToDoList에 css 추가
+
 ## V 1.07 로그인 연동
 npm install typescript-cookie
 
