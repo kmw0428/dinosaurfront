@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './style.css';
 
 // 작업(task) 목록의 타입을 문자열 배열로 지정
 type Task = string[];
@@ -26,11 +27,14 @@ function TodoList(): JSX.Element {
   }, []);
 
   return (
-    <div>
-      <h2>할당된 작업 목록</h2>
-      <ul>
+    <div className="container">
+      <h2 className="title">할당된 작업 목록</h2>
+      <ul className="task-list">
         {tasks.map((task, index) => (
-          <li key={index}>{task}</li>
+          <li key={index} className="task-item">
+            <input type="checkbox" id={`task-${index}`} />
+            <label htmlFor={`task-${index}`}>{task}</label>
+          </li>
         ))}
       </ul>
     </div>
