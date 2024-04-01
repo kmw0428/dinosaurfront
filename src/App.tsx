@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import LoginPage from './view/Signup/index'
 import EmpPage from './view/Employee/Emp_List'
 import EmpEdit from './view/Employee/Emp_Edit'
@@ -14,6 +14,21 @@ import DashBoardPage from './view/Admin/DashBoard';
 function App() {
   return (
     <Router>
+      <header>
+        <div className="logo">
+          <Link to = "/">
+          <img src={process.env.PUBLIC_URL + "/yellowLogo.jpg.png"} alt="Logo" />
+          </Link>
+        </div>
+        <nav>
+          <a href='/dino'>공룡 목록</a>
+          <a href='/emp'>직원 목록</a>
+          <a href='/login'>Login & Signup</a>
+        </nav>
+      </header>
+      <footer>
+        <p>© 2024 Team2 . All rights reserved.</p>
+      </footer>
       <Routes>
         <Route path="/emp" element={<EmpPage />} /> 
         <Route path="/emp/edit/:id" element={<EmpEdit /> } />

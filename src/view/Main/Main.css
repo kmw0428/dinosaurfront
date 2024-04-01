@@ -1,0 +1,57 @@
+/* App.css */
+
+.main-page {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  header {
+    background-color: #1c3d1e;
+    color: #fff;
+    padding: 0px;
+    display: flex;
+    justify-content: space-between; /* 로고와 링크 사이에 공간을 최대한 확보합니다 */
+    align-items: center; /* 로고와 링크를 수직으로 가운데 정렬합니다 */
+  }
+  
+  .logo img {
+    width: 100px;
+    height: auto; /* 로고의 높이를 조절합니다 */
+  }
+  
+  nav a {
+    margin: 0 10px; /* 링크 간격을 넓히기 위해 좌우 여백을 추가합니다 */
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  header a {
+    margin: 0 10px; /* 링크 간격을 넓히기 위해 좌우 여백을 추가합니다 */
+    text-decoration: none;
+    color: #fff;
+  }
+
+  footer {
+    background-color: #1c3d1e;
+    color: #fff;
+    padding: 5px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+   span {
+    color: rgb(255, 1, 158);
+   }
+
+   body {
+    background-image: url("/public/bgp1.jpg");
+    background-repeat: no-repeat ;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+   }
+  
+
+   

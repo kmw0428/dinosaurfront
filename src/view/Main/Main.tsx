@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './Main.css';
 
 const Home: React.FC = () => {
   const [visits, setVisits] = useState<number>(0);
@@ -14,13 +15,15 @@ const Home: React.FC = () => {
     setVisits(newVisitCount);
   }, []);
 
+
   return (
-    <div>
-      <h1>Welcome to the HomePage</h1>
-      <p>You have visited this page {visits} times.</p>
-      <a href='/dino'>공룡 목록</a><br />
-      <a href='/emp'>직원 목록</a><br />
-      <a href='/login'>login&Signup</a>
+    <div className="main-page">
+      <main>
+        <br />
+      <p>You have visited this page <span>{visits}</span> times.</p>
+            <h1>Welcome to the our HomePage</h1>
+            
+      </main>
     </div>
   );
 }
