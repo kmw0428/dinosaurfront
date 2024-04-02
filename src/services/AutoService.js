@@ -1,4 +1,5 @@
 import axios from 'axios';
+import TokenService from "./token.service";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
@@ -10,10 +11,12 @@ export const loginUser = async (username, password) => {
     .then((response) => {
       if (response.data.username) {
       localStorage.setItem("user", JSON.stringify(response.data));
+    } if (response.data.accessToken) {
+      TokenService.setUser(response.data);
     }
 
     return response.data;
-  });
+  }); 
 };
 
 export const registerUser = async (email, username, password) => {
