@@ -1,3 +1,5 @@
+## V 1.10 로그인 시 Navbar작동
+
 ## V 1.09 로그아웃 가능
 
 ## V 1.08 EmpToDoList에 css 추가
