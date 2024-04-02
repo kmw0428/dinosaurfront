@@ -5,7 +5,7 @@ import { loginUser, registerUser } from "../../services/AutoService";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import {getCookie, setCookie } from "typescript-cookie"; // universal-cookie 라이브러리 import
+import { getCookie } from "typescript-cookie"; // universal-cookie 라이브러리 import
 
 // 함수 컴포넌트의 이름은 대문자로 시작해야 하며, `function` 키워드를 사용하거나 화살표 함수로 정의할 수 있습니다.
 const Loginpg: React.FC = () => {
@@ -19,10 +19,16 @@ const Loginpg: React.FC = () => {
   const [isLoginForm, setIsLoginForm] = useState<boolean>(true); // 로그인 폼과 가입 폼을 토글하기 위한 상태
   const MySwal = withReactContent(Swal);
   const [passwordErr, setPasswordErr] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const passwordRegex = /^.{6,}$/;
 
-   const validatePass = () => {
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    setIsLoggedIn(!!user);
+  }, []);
+
+  const validatePass = () => {
     if (!passwordRegex.test(password)) {
       setPasswordErr(true);
     } else {
@@ -34,30 +40,16 @@ const Loginpg: React.FC = () => {
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
-    const isEmployee = username.startsWith("emp-");
+    const isEmployee = username.startsWith("emp");
 
     try {
       const response = await loginUser(username, password);
-      if (response.token) {
-        // 로그인이 성공하고 서버에서 토큰을 반환한 경우
-        console.log("Login successful", response);
-        // 토큰을 로컬 스토리지에 저장합니다.
-        localStorage.setItem("token", response.token);
-        if (isEmployee) {
-          navigate("/todolist");
-        } else {
-          navigate("/");
-        }
-      } else {
-        // 서버에서 토큰이 반환되지 않은 경우
-        console.error("Token not found in response");
-        MySwal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Token not found in response",
-          confirmButtonText: "Confirm",
-        });
-      }
+      // 로그인이 성공하고 서버에서 토큰을 반환한 경우
+      console.log("Login successful", response);
+      // 토큰을 로컬 스토리지에 저장합니다.
+      console.log("로그인 성공");
+      // 로그인 상태 관리 로직 실행 (예: 상태 업데이트)
+      navigate(isEmployee ? "/todolist" : "/");
     } catch (error) {
       MySwal.fire({
         icon: "error",
@@ -72,11 +64,11 @@ const Loginpg: React.FC = () => {
     const token = getCookie("token");
     if (token) {
       axios
-        .get("/api/profile", {
+        .get("/api/auth/signin", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-          withCredentials: true
+          withCredentials: true,
         })
         .then((response) => {
           console.log("User profile:", response.data);
@@ -112,7 +104,7 @@ const Loginpg: React.FC = () => {
         text: "You can now login",
         confirmButtonText: "Ok",
       }).then(() => {
-          window.location.replace("/login");
+        window.location.replace("/login");
       });
     } catch (error) {
       const errorObj: Error = error as Error;
@@ -157,7 +149,11 @@ const Loginpg: React.FC = () => {
                 onBlur={validatePass} // onBlur 이벤트 핸들러 추가
                 required
               />
-              {passwordErr && <p className="error-message">Password must be at least 6 characters long.</p>}
+              {passwordErr && (
+                <p className="error-message">
+                  Password must be at least 6 characters long.
+                </p>
+              )}
               <label htmlFor="login-password">Password</label>
             </div>
             <button type="submit" className="login-button">
@@ -207,18 +203,22 @@ const Loginpg: React.FC = () => {
               <label htmlFor="signup-password">Password</label>
             </div>
             <div className="user-box">
-            <input
-              type="password"
-              id="signup-confirm-password"
-              value={confirmPassword}
-              onBlur={validatePass} // onBlur 이벤트 핸들러 추가
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-            {passwordErr && <p className="error-message">Password must be at least 6 characters long.</p>}
-            <label htmlFor="signup-confirm-password">Confirm Password</label>
-          </div>
-          {passwordError && <p className="error-message">{passwordError}</p>}
+              <input
+                type="password"
+                id="signup-confirm-password"
+                value={confirmPassword}
+                onBlur={validatePass} // onBlur 이벤트 핸들러 추가
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+              {passwordErr && (
+                <p className="error-message">
+                  Password must be at least 6 characters long.
+                </p>
+              )}
+              <label htmlFor="signup-confirm-password">Confirm Password</label>
+            </div>
+            {passwordError && <p className="error-message">{passwordError}</p>}
             <button type="submit" className="signup-button">
               CREATE
             </button>
@@ -232,7 +232,7 @@ const Loginpg: React.FC = () => {
         </div>
       )}
     </div>
-);
+  );
 };
 
 export default Loginpg;
