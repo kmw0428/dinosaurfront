@@ -50,6 +50,7 @@ const Loginpg: React.FC = () => {
       console.log("로그인 성공");
       // 로그인 상태 관리 로직 실행 (예: 상태 업데이트)
       navigate(isEmployee ? "/todolist" : "/");
+      window.location.reload();
     } catch (error) {
       MySwal.fire({
         icon: "error",
