@@ -67,7 +67,7 @@ function CustomNavbar() {
           </Form>
           {isLoggedIn ? (
             <>
-              <Nav.Link as={Link} to="/profile">
+              <Nav.Link as={Link} to="/todolist">
                 {JSON.parse(localStorage.getItem("user") || "{}").username ||
                   "Profile"}
               </Nav.Link>
