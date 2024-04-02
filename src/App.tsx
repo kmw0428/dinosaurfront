@@ -15,6 +15,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS
+import Safety from "./view/Admin/Safety";
 
 function App() {
   const { isLoggedIn, username, logout } = useAuth();
@@ -69,6 +70,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/todolist/" element={<TodoListPage />} />
         <Route path="/admin" element={<DashBoardPage />} />
+        <Route path="/admin/safety-inspections" element={<Safety />} />
       </Routes>
     </Router>
   );
