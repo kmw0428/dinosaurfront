@@ -27,6 +27,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/todolist" element={<TodoListPage />} />
         <Route path="/admin" element={<DashBoardPage />} />
+        <Route path="/admin/safety-inspections" element={<Safety />} />
       </Routes>
     </>
   );
