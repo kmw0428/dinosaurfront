@@ -12,6 +12,7 @@ import MainPage from "./view/Main/Main";
 import TodoListPage from "./view/Employee/Emp_ToDoList";
 import DashBoardPage from "./view/Admin/DashBoard";
 import Safety from "./view/Admin/Safety";
+import ProfilPage from "./view/Profile/Profile"
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/todolist" element={<TodoListPage />} />
         <Route path="/admin" element={<DashBoardPage />} />
         <Route path="/admin/safety-inspections" element={<Safety />} />
+        <Route path="/profile" element={<ProfilPage />} />
       </Routes>
     </>
   );
