@@ -11,6 +11,7 @@ import DinoAdd from "./view/Dinosaur/Dino_Add";
 import MainPage from "./view/Main/Main";
 import TodoListPage from "./view/Employee/Emp_ToDoList";
 import DashBoardPage from "./view/Admin/DashBoard";
+import Safety from "./view/Admin/Safety";
 
 function App() {
   return (
