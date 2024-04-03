@@ -34,7 +34,8 @@ export const registerUser = async (email, username, password) => {
 
 export const logoutUser = async () => {
   localStorage.removeItem("user");
-  return axios.post(API_URL + 'signout').then((response) => {
+  return axios.post(API_URL + 'signout', {}, { withCredentials: true })
+  .then((response) => {
     return response.data;
   });
 };

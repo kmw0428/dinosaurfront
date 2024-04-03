@@ -40,7 +40,7 @@ function CustomNavbar() {
     }
   };
   return (
-    <Navbar className="custom-navbar" expand="lg">
+    <Navbar className="custom-navbar" expand="md">
       <Navbar.Brand as={Link} to="/">
         <img
           src={process.env.PUBLIC_URL + "/logo_2_1.png"}
