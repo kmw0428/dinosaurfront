@@ -48,10 +48,11 @@ function Emp_Add(): JSX.Element {
   };
 
   return (
-    <div>
-      <h2>Add New Employee</h2>
+    <div className="container">
+      <br />
+      <h2 className="edit-heading">Add New Employee</h2><br />
       <form
-        onSubmit={handleSubmitNewEmp}
+        onSubmit={handleSubmitNewEmp} className="edit-form"
         style={{
           display: "flex",
           flexDirection: "column",
@@ -61,7 +62,7 @@ function Emp_Add(): JSX.Element {
           textAlign: "center",
         }}
       >
-        <table>
+        <table className="edit-table">
           <tbody>
             <tr>
               <td>
@@ -74,6 +75,7 @@ function Emp_Add(): JSX.Element {
                   name="empName"
                   value={newEmp.empName}
                   onChange={handleInputChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -88,6 +90,7 @@ function Emp_Add(): JSX.Element {
                   name="empPosition"
                   value={newEmp.empPosition}
                   onChange={handleInputChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -102,6 +105,7 @@ function Emp_Add(): JSX.Element {
                   name="empDepart"
                   value={newEmp.empDepart}
                   onChange={handleInputChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -116,6 +120,7 @@ function Emp_Add(): JSX.Element {
                   name="empEmail"
                   value={newEmp.empEmail}
                   onChange={handleInputChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -130,6 +135,7 @@ function Emp_Add(): JSX.Element {
                   name="empPhone"
                   value={newEmp.empPhone}
                   onChange={handleInputChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -144,6 +150,7 @@ function Emp_Add(): JSX.Element {
                   name="empAddress"
                   value={newEmp.empAddress}
                   onChange={handleInputChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -158,6 +165,7 @@ function Emp_Add(): JSX.Element {
                   name="empBirth"
                   value={newEmp.empBirth}
                   onChange={handleInputChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -172,12 +180,13 @@ function Emp_Add(): JSX.Element {
                   name="empWorkYear"
                   value={newEmp.empWorkYear}
                   onChange={handleInputChange}
+                  className="input-field"
                 />
               </td>
             </tr>
           </tbody>
         </table>
-        <button type="submit">Save</button>
+        <button type="submit" className="btn btn-center">Save</button>
       </form>
     </div>
   );

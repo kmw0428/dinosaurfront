@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './style.css';
+
 
 // 작업(task) 목록의 타입을 문자열 배열로 지정
 type Task = string[];

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./style.css";
 import { loginUser, registerUser } from "../../services/AutoService";
 import axios from "axios";
 import Swal from "sweetalert2";

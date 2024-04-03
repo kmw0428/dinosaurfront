@@ -4,6 +4,7 @@ import axios from "axios";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 
+
 // Employee 인터페이스 선언
 interface Employee {
   id?: number;
@@ -95,10 +96,11 @@ const Emp_Edit: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>Edit Employee</h2>
+    <div className="container">
+      <br />
+      <h2>Edit Employee</h2><br />
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit} className="edit-form"
         style={{
           display: "flex",
           flexDirection: "column",
@@ -108,7 +110,7 @@ const Emp_Edit: React.FC = () => {
           textAlign: "center",
         }}
       >
-        <table>
+        <table className="edit-table">
           <tbody>
             <tr>
               <td>
@@ -121,6 +123,7 @@ const Emp_Edit: React.FC = () => {
                   name="empName"
                   value={empData.empName}
                   onChange={handleChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -135,6 +138,7 @@ const Emp_Edit: React.FC = () => {
                   name="empPosition"
                   value={empData.empPosition}
                   onChange={handleChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -149,6 +153,7 @@ const Emp_Edit: React.FC = () => {
                   name="empDepart"
                   value={empData.empDepart}
                   onChange={handleChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -163,6 +168,7 @@ const Emp_Edit: React.FC = () => {
                   name="empEmail"
                   value={empData.empEmail}
                   onChange={handleChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -177,6 +183,7 @@ const Emp_Edit: React.FC = () => {
                   name="empPhone"
                   value={empData.empPhone}
                   onChange={handleChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -191,6 +198,7 @@ const Emp_Edit: React.FC = () => {
                   name="empAddress"
                   value={empData.empAddress}
                   onChange={handleChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -205,6 +213,7 @@ const Emp_Edit: React.FC = () => {
                   name="empBirth"
                   value={empData.empBirth}
                   onChange={handleChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -219,12 +228,13 @@ const Emp_Edit: React.FC = () => {
                   name="empWorkYear"
                   value={empData.empWorkYear}
                   onChange={handleChange}
+                  className="input-field"
                 />
               </td>
             </tr>
           </tbody>
         </table>
-        <button type="submit">Save Changes</button>
+        <button type="submit" className="btn btn-success btn-center">Save Changes</button>
       </form>
     </div>
   );

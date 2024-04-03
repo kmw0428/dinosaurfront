@@ -70,7 +70,7 @@ function DinoHealth(): JSX.Element {
             <table className="health">
               <tr>
                 <th className="health-species">{dino.dinoSpecies}</th>
-                <td className={dino.dinoHealthStatus <= 5 ? "red-number" : ""}>
+                <td className={dino.dinoHealthStatus <= 5 ? "red-number td1" : "td1"}>
                   <div className="health-status">
                   {dino.dinoHealthStatus}
                     {dino.dinoHealthStatus <= 5 && (<span className="red-text">EMERGENCY</span>)}
@@ -79,7 +79,7 @@ function DinoHealth(): JSX.Element {
                 <td>
                   <Link
                     to={`/dino/edit/${dino.id}`}
-                    className="btn btn-whitebase"
+                    className="btn-whitebase"
                   >
                     Edit
                   </Link>
