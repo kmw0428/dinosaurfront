@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
-import "./style.css";
+
 
 // 공룡 데이터에 대한 타입 정의
 interface DinoData {
@@ -227,7 +227,7 @@ const Dino_Edit: React.FC = () => {
           </tbody>
         </table>
         <br />
-        <button type="submit" className="btn btn-success btn-center">
+        <button type="submit" className="btn btn-center">
           Save Changes
         </button>
       </form>

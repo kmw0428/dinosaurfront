@@ -5,7 +5,7 @@ import { Navbar, Nav, Form } from "react-bootstrap"; // react-bootstrap에서 �
 import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import "./style.css";
+
 
 function CustomNavbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

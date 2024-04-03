@@ -70,10 +70,11 @@ function Dino_Add(): JSX.Element {
   };
 
   return (
-    <div>
-      <h2>Add New Dinosaur</h2>
+    <div className="container">
+      <br />
+      <h2 className="edit-heading">Add New Dinosaur</h2><br />
       <form
-        onSubmit={handleSubmitNewDino}
+        onSubmit={handleSubmitNewDino} className="edit-form"
         style={{
           display: "flex",
           flexDirection: "column",
@@ -83,7 +84,7 @@ function Dino_Add(): JSX.Element {
           textAlign: "center",
         }}
       >
-        <table>
+        <table className="edit-table">
           <tbody>
             <tr>
               <td>
@@ -96,6 +97,7 @@ function Dino_Add(): JSX.Element {
                   name="dinoSpecies"
                   value={newDino.dinoSpecies}
                   onChange={handleInputChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -110,6 +112,7 @@ function Dino_Add(): JSX.Element {
                   name="dinoEra"
                   value={newDino.dinoEra}
                   onChange={handleInputChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -124,6 +127,7 @@ function Dino_Add(): JSX.Element {
                   name="dinoType"
                   value={newDino.dinoType}
                   onChange={handleInputChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -138,6 +142,7 @@ function Dino_Add(): JSX.Element {
                   name="dinoFeature"
                   value={newDino.dinoFeature}
                   onChange={handleInputChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -152,6 +157,7 @@ function Dino_Add(): JSX.Element {
                   name="dinoSize"
                   value={newDino.dinoSize}
                   onChange={handleInputChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -166,6 +172,7 @@ function Dino_Add(): JSX.Element {
                   name="dinoWeight"
                   value={newDino.dinoWeight}
                   onChange={handleInputChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -180,6 +187,7 @@ function Dino_Add(): JSX.Element {
                   name="dinoDangerLevel"
                   value={newDino.dinoDangerLevel}
                   onChange={handleInputChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -194,12 +202,13 @@ function Dino_Add(): JSX.Element {
                   name="dinoHealthStatus"
                   value={newDino.dinoHealthStatus}
                   onChange={handleInputChange}
+                  className="input-field"
                 />
               </td>
             </tr>
           </tbody>
         </table>
-        <button type="submit">Save</button>
+        <button type="submit" className="btn btn-center">Save</button>
       </form>
     </div>
   );

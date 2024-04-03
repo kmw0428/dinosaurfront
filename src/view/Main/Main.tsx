@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import "./style.css";
+
 
 const Home: React.FC = () => {
   const [visits, setVisits] = useState<number>(0);
