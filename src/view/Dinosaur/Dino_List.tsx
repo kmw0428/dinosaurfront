@@ -60,14 +60,6 @@ function DinosaurList(): JSX.Element {
     fetchData();
   }, []); // 의존성 배열을 빈 배열로 설정하여 컴포넌트 마운트 시에만 호출
 
-  const handleSelectDino = (id: number) => {
-    if (selectedDinoId === id) {
-      setSelectedDinoId(null);
-    } else {
-      setSelectedDinoId(id);
-    }
-  };
-
   const handleDeleteDino = async (dinoId: number) => {
     if (window.confirm("Are you sure you want to delete?")) {
       try {

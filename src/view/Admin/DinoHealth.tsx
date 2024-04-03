@@ -70,16 +70,12 @@ function DinoHealth(): JSX.Element {
                 <th>{dino.dinoSpecies}</th>
                 <th className={dino.dinoHealthStatus <= 5 ? "red-text" : ""}>{dino.dinoHealthStatus}</th>
                 <th>
-                  {currentUser && currentUser.roles.includes("ROLE_ADMIN") && (
-                    <>
                       <Link
                         to={`/dino/edit/${dino.id}`}
                         className="btn btn-whitebase"
                       >
                         Edit
                       </Link>
-                    </>
-                  )}
                 </th>
               </tr>
             </table>
