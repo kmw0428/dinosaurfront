@@ -39,8 +39,9 @@ function CustomNavbar() {
       });
     }
   };
+  
   return (
-    <Navbar className="custom-navbar" expand="md">
+    <Navbar className="navbar navbar-dark bg-dark" expand="md">
       <Navbar.Brand as={Link} to="/">
         <img
           src={process.env.PUBLIC_URL + "/logo_2_1.png"}
@@ -58,7 +59,7 @@ function CustomNavbar() {
               className="me-2"
               aria-label="Search"
             />
-            <button className="outline-success">Search</button>
+            <button className="btn btn-info">Search</button>
           </Form>
           {isLoggedIn ? (
             <>

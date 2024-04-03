@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
 
 // Employee 인터페이스 선언
 interface Employee {
@@ -14,6 +16,8 @@ interface Employee {
   empBirth: string;
   empWorkYear: number;
 }
+
+const MySwal = withReactContent(Swal);
 
 const Emp_Edit: React.FC = () => {
   // useParams 훅을 사용하여 URL 파라미터(id) 추출
@@ -40,7 +44,11 @@ const Emp_Edit: React.FC = () => {
         const response = await axios.get(`http://localhost:8080/api/employees/${id}`);
         setEmpData(response.data);
       } catch (error) {
-        console.error('직원 정보 불러오기 실패:', error);
+        MySwal.fire(
+          '실패!',
+          '정보를 불러오는데 실패했습니다.',
+          'error'
+        );
       }
     };
 
@@ -59,12 +67,29 @@ const Emp_Edit: React.FC = () => {
   // 폼 제출 시 처리 함수
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (window.confirm("저장하시겠습니까?")) {
+    const result = await MySwal.fire({
+      icon: "info",
+      title: "Edit",
+      text: "Are you sure to edit?",
+      showCancelButton: true,
+      confirmButtonText: "OK",
+      cancelButtonText: "NO, Cancel",
+    });
+    if (result.isConfirmed) {
       try {
         await axios.put(`http://localhost:8080/api/employees/${id}`, empData);
-        navigate('/emp');
+        MySwal.fire(
+          '저장됨!',
+          '변경 사항이 저장되었습니다.',
+          'success'
+        );
+        navigate(-1);
       } catch (error) {
-        console.error('직원 정보 업데이트 실패:', error);
+        MySwal.fire(
+          '실패!',
+          '정보를 저장하는데 실패했습니다.',
+          'error'
+        );
       }
     }
   };

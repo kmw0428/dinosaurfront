@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
 
 // 공룡 데이터에 대한 타입 정의
 interface DinoData {
@@ -15,14 +17,16 @@ interface DinoData {
   dinoHealthStatus: number;
 }
 
+const MySwal = withReactContent(Swal);
+
 const Dino_Edit: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [dinoData, setDinoData] = useState<DinoData>({
-    dinoSpecies: '',
-    dinoEra: '',
-    dinoType: '',
-    dinoFeature: '',
+    dinoSpecies: "",
+    dinoEra: "",
+    dinoType: "",
+    dinoFeature: "",
     dinoSize: 0,
     dinoWeight: 0,
     dinoDangerLevel: 0,
@@ -32,10 +36,16 @@ const Dino_Edit: React.FC = () => {
   useEffect(() => {
     const fetchDinoData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/dinosaur/${id}`);
+        const response = await axios.get(
+          `http://localhost:8080/api/dinosaur/${id}`
+        );
         setDinoData(response.data);
       } catch (error) {
-        console.error('공룡 정보 불러오기 실패:', error);
+        MySwal.fire(
+          'Fail!',
+          'Fail to access information',
+          'error'
+        );
       }
     };
 
@@ -44,7 +54,7 @@ const Dino_Edit: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setDinoData(prevData => ({
+    setDinoData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -52,12 +62,29 @@ const Dino_Edit: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (window.confirm("저장하시겠습니까?")) {
+    const result = await MySwal.fire({
+      icon: "info",
+      title: "Edit",
+      text: "Are you sure to edit?",
+      showCancelButton: true,
+      confirmButtonText: "OK",
+      cancelButtonText: "NO, Cancel",
+    });
+    if (result.isConfirmed) {
       try {
         await axios.put(`http://localhost:8080/api/dinosaur/${id}`, dinoData);
-        navigate('/dino');
+        MySwal.fire(
+          'Success!',
+          'Dinosaur edited successfully!',
+          'success'
+        );
+        navigate(-1); // 이전 페이지로 이동
       } catch (error) {
-        console.error('공룡 정보 업데이트 실패:', error);
+        MySwal.fire(
+          'Fail!',
+          'Failed to edit dinosaur.',
+          'error'
+        );
       }
     }
   };
@@ -66,7 +93,7 @@ const Dino_Edit: React.FC = () => {
     <div>
       <h2>Edit Dinosaur</h2>
       <form onSubmit={handleSubmit}>
-      <table>
+        <table>
           <tbody>
             <tr>
               <td>
@@ -166,7 +193,9 @@ const Dino_Edit: React.FC = () => {
                 />
               </td>
             </tr>
-            <tr>
+            <tr
+              className={dinoData.dinoHealthStatus <= 5 ? "red-background" : ""}
+            >
               <td>
                 <label htmlFor="dinoHealthStatus">Health Status:</label>
               </td>
@@ -182,7 +211,9 @@ const Dino_Edit: React.FC = () => {
             </tr>
           </tbody>
         </table>
-        <button type="submit">Save Changes</button>
+        <button type="submit" className="btn btn-success">
+          Save Changes
+        </button>
       </form>
     </div>
   );
