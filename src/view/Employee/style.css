@@ -38,28 +38,4 @@
     color: rgb(138, 165, 255); /* 체크된 상태일 때 텍스트의 색상을 변경합니다. */
   }
 
-  .Add {
-    float: right;
-  }
-
-  .red-background {
-    background-color: red;
-  }
-
-  .red-text {
-    text-align: center;
-    color: red;
-  }
-
-  .health {
-    text-align: center;
-  }
-
-  .addFeed {
-    text-align: center;
-  }
-
-  .feedTime {
-    text-align: center;
-    
-  }
+  

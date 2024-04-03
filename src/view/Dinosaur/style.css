@@ -1,0 +1,53 @@
+
+.container {
+    max-width: 600px;
+    margin: auto;
+  }
+  
+ 
+  .edit-heading {
+    text-align: center;
+  }
+  
+
+  .edit-form {
+    text-align: center;
+    width: 700px;
+  }
+  
+
+  .edit-table {
+    width: 100%; /* 전체 너비 지정 */
+    border-collapse: collapse; /* 테이블 간격을 없애기 */
+    background-color: #2e2e2e;
+  }
+  
+  .edit-table td,
+  .edit-table th {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    color: rgb(14, 14, 14);
+    color: #ffffff;
+  }
+  
+  .input-field {
+    width: 100%; /* 전체 너비 지정 */
+    padding: 8px; /* 안쪽 간격 */
+    margin-top: 4px; /* 위쪽 여백 */
+    margin-bottom: 8px; /* 아래쪽 여백 */
+    box-sizing: border-box; /* 패딩과 테두리를 포함한 전체 너비 설정 */
+  }
+  
+  .btn-center {
+    display: block;
+    margin: auto;
+    background-color: #2e2e2e;
+    border: 1px solid #2e2e2e;
+  }
+  .btn-center:hover {
+    background-color: #ffffff;
+    color: #2e2e2e;
+    border: 1px solid #2e2e2e;
+  }
+  
