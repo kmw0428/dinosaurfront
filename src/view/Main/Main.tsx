@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import "./style.css";
 
 const Home: React.FC = () => {
   const [visits, setVisits] = useState<number>(0);
@@ -15,12 +16,16 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Welcome to the HomePage</h1>
-      <p>You have visited this page {visits} times.</p>
-      <a href='/dino'>공룡 목록</a><br />
-      <a href='/emp'>직원 목록</a><br />
-      <a href='/login'>login&Signup</a>
+    <div className="container">
+      <div className="centered">
+        <p className="title">Welcome to the HomePage</p>
+        <p>You have visited this page <strong>{visits}</strong> times.</p>
+      </div>
+      <div className="horizontal-list">
+        <a href='/dino'>Dinosaur List</a>
+        <>  |  </>
+        <a href='/emp'>Employee List</a>
+      </div>
     </div>
   );
 }
