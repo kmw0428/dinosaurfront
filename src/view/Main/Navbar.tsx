@@ -5,6 +5,7 @@ import { Navbar, Nav, Form } from "react-bootstrap"; // react-bootstrap에서 �
 import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import "./style.css";
 
 function CustomNavbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -39,7 +40,7 @@ function CustomNavbar() {
     }
   };
   return (
-    <Navbar bg="light" expand="md">
+    <Navbar className="custom-navbar" expand="md">
       <Navbar.Brand as={Link} to="/">
         <img
           src={process.env.PUBLIC_URL + "/logo_2_1.png"}
@@ -50,12 +51,6 @@ function CustomNavbar() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ms-auto">
-          <Nav.Link as={Link} to="/dino">
-            Dinosaur
-          </Nav.Link>
-          <Nav.Link as={Link} to="/emp">
-            Employee
-          </Nav.Link>
           <Form className="d-flex">
             <Form.Control
               type="search"
