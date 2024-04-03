@@ -61,30 +61,37 @@ function DinoHealth(): JSX.Element {
 
   return (
     <div>
+      <br />
+      <h2>공룡 건강 점검 레코드</h2><br />
       {dinosaurs.map((dino, index) => (
         <div key={dino.id}>
           <h2 id={`heading${index}`}></h2>
           <div>
             <table className="health">
               <tr>
-                <th>{dino.dinoSpecies}</th>
-                <th className={dino.dinoHealthStatus <= 5 ? "red-text" : ""}>{dino.dinoHealthStatus}</th>
-                <th>
-                      <Link
-                        to={`/dino/edit/${dino.id}`}
-                        className="btn btn-whitebase"
-                      >
-                        Edit
-                      </Link>
-                </th>
+                <th className="health-species">{dino.dinoSpecies}</th>
+                <td className={dino.dinoHealthStatus <= 5 ? "red-number" : ""}>
+                  <div className="health-status">
+                  {dino.dinoHealthStatus}
+                    {dino.dinoHealthStatus <= 5 && (<span className="red-text">EMERGENCY</span>)}
+                  </div>
+                </td>
+                <td>
+                  <Link
+                    to={`/dino/edit/${dino.id}`}
+                    className="btn btn-whitebase"
+                  >
+                    Edit
+                  </Link>
+                </td>
               </tr>
             </table>
-            {dino.dinoHealthStatus <= 5 && (<p className="red-text">EMERGENCY</p>)}
           </div>
         </div>
       ))}
     </div>
   );
+  
 }
 
 export default DinoHealth;

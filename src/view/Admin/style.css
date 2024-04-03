@@ -84,3 +84,77 @@
   span {
     color: rgb(238, 255, 0);
   }
+  /* 스타일링 */
+.health {
+  width: 60%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.health th {
+  border: 1px solid #2e2e2e;
+  padding: 12px;
+  text-align: left;
+  background-color: #2e2e2e;
+}
+
+.health td {
+  width: 30%;
+  background-color: #2e2e2e;
+  color: #ffffff;
+  border-color: #2e2e2e;
+
+}
+
+.Add {
+  float: right;
+}
+
+.red-background {
+  background-color: red !important;
+}
+
+.red-text {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+  margin-left: 5px;
+
+}
+.red-number {
+  color: red  !important;
+  font-weight: bold;
+}
+
+.health-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-whitebase {
+  background-color: #2e2e2e;
+  color: rgb(255, 255, 255);
+  border: 1px solid #2e2e2e;
+  padding: 6px 12px;
+  margin: 0 auto;
+  display: block;
+  float: right;
+}
+
+.addFeed {
+  text-align: center;
+}
+
+.feedTime {
+  text-align: center;
+  
+}
+.error-message {
+  color: red;
+  font-size: 12px;
+}
+
+h1, h2, h3 {
+  text-align: center;
+}

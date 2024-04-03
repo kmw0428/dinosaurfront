@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
+import "./style.css";
 
 // 공룡 데이터에 대한 타입 정의
 interface DinoData {
@@ -95,10 +96,11 @@ const Dino_Edit: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>Edit Dinosaur</h2>
-      <form onSubmit={handleSubmit}>
-        <table>
+    <div className="container">
+      <br />
+      <h2 className="edit-heading">Edit Dinosaur</h2><br />
+      <form onSubmit={handleSubmit} className="edit-form">
+        <table className="edit-table">
           <tbody>
             <tr>
               <td>
@@ -111,6 +113,7 @@ const Dino_Edit: React.FC = () => {
                   name="dinoSpecies"
                   value={dinoData.dinoSpecies}
                   onChange={handleChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -125,6 +128,7 @@ const Dino_Edit: React.FC = () => {
                   name="dinoEra"
                   value={dinoData.dinoEra}
                   onChange={handleChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -139,6 +143,7 @@ const Dino_Edit: React.FC = () => {
                   name="dinoType"
                   value={dinoData.dinoType}
                   onChange={handleChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -153,6 +158,7 @@ const Dino_Edit: React.FC = () => {
                   name="dinoFeature"
                   value={dinoData.dinoFeature}
                   onChange={handleChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -167,6 +173,7 @@ const Dino_Edit: React.FC = () => {
                   name="dinoSize"
                   value={dinoData.dinoSize}
                   onChange={handleChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -181,6 +188,7 @@ const Dino_Edit: React.FC = () => {
                   name="dinoWeight"
                   value={dinoData.dinoWeight}
                   onChange={handleChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -195,6 +203,7 @@ const Dino_Edit: React.FC = () => {
                   name="dinoDangerLevel"
                   value={dinoData.dinoDangerLevel}
                   onChange={handleChange}
+                  className="input-field"
                 />
               </td>
             </tr>
@@ -211,12 +220,14 @@ const Dino_Edit: React.FC = () => {
                   name="dinoHealthStatus"
                   value={dinoData.dinoHealthStatus}
                   onChange={handleChange}
+                  className="input-field"
                 />
               </td>
             </tr>
           </tbody>
         </table>
-        <button type="submit" className="btn btn-success">
+        <br />
+        <button type="submit" className="btn btn-success btn-center">
           Save Changes
         </button>
       </form>
