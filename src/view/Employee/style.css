@@ -37,3 +37,7 @@
   .task-item input[type="checkbox"]:checked + label {
     color: rgb(138, 165, 255); /* 체크된 상태일 때 텍스트의 색상을 변경합니다. */
   }
+
+  .Add {
+    float: right;
+  }

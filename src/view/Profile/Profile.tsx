@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { getCurrentUser } from "../../services/AutoService";
 
-
 const Profile = () => {
-    interface User {
-        id: number;
-        username: string;
-        email: string;
-        roles: string[];
-      }
-      
-      const [currentUser, setCurrentUser] = useState<User | null>(null);
-    
+  interface User {
+    id: number;
+    username: string;
+    email: string;
+    roles: string[];
+  }
+
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+
   useEffect(() => {
     const user = getCurrentUser();
     setCurrentUser(user);
@@ -25,20 +24,34 @@ const Profile = () => {
     <div className="container">
       <header className="jumbotron">
         <h3>
-          <strong>{currentUser.username}</strong> Profile
+          <strong>{currentUser.username.replace(/emp\d*/g, "")}</strong>'s
+          Profile
         </h3>
       </header>
-      <p>
-        <strong>Id:</strong> {currentUser.id}
-      </p>
       <p>
         <strong>Email:</strong> {currentUser.email}
       </p>
       <strong>Authorities:</strong>
-      <ul>
+      <div>
         {currentUser.roles &&
-          currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-      </ul>
+          currentUser.roles.map((role, index) => {
+            let roleName;
+            switch (role) {
+              case "ROLE_ADMIN":
+                roleName = "Administrator";
+                break;
+              case "ROLE_USER":
+                roleName = "User";
+                break;
+              case "ROLE_MODERATOR":
+                roleName = "Moderator";
+                break;
+              default:
+                roleName = "Unknown Role";
+            }
+            return <p key={index}>{roleName}</p>;
+          })}
+      </div>
       <a href="/todolist">To Do List</a>
     </div>
   );

@@ -4,7 +4,8 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS
 import "bootstrap/dist/js/bootstrap.bundle.min"; // Bootstrap JS
 import Swal from "sweetalert2";
-import withReactContent from 'sweetalert2-react-content';
+import withReactContent from "sweetalert2-react-content";
+import { getCurrentUser } from "../../services/AutoService";
 
 // 공룡 데이터의 타입 정의
 interface Dinosaur {
@@ -19,14 +20,25 @@ interface Dinosaur {
   dinoHealthStatus: number;
 }
 
+interface User {
+  id: number;
+  username: string;
+  email: string;
+  roles: string[];
+}
+
 const MySwal = withReactContent(Swal);
 
 function DinosaurList(): JSX.Element {
   // 상태 관리
   const [dinosaurs, setDinosaurs] = useState<Dinosaur[]>([]);
   const [selectedDinoId, setSelectedDinoId] = useState<number | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(getCurrentUser());
 
   useEffect(() => {
+    const user = getCurrentUser();
+    setCurrentUser(user);
+
     const fetchData = async () => {
       try {
         // API 호출
@@ -37,11 +49,11 @@ function DinosaurList(): JSX.Element {
         MySwal.fire({
           icon: "error",
           title: "Oops...",
-          text: 'API 호출 중 문제가 발생했습니다.',
-          confirmButtonText: '확인'
+          text: "API 호출 중 문제가 발생했습니다.",
+          confirmButtonText: "확인",
         }).then(() => {
           window.location.replace("/");
-      });
+        });
       }
     };
 
@@ -62,7 +74,7 @@ function DinosaurList(): JSX.Element {
         // 삭제 요청을 서버에 보냅니다.
         await axios.delete(`http://localhost:8080/api/dinosaur/${dinoId}`);
         alert("Dinosaur deleted successfully!");
-  
+
         setDinosaurs(dinosaurs.filter((dino) => dino.id !== dinoId));
         setSelectedDinoId(null);
       } catch (error) {
@@ -74,53 +86,70 @@ function DinosaurList(): JSX.Element {
 
   return (
     <div className="accordion" id="dinosaurAccordion">
-      <h1>Dinosaur List</h1>
-        {dinosaurs.map((dino, index) => (
-          <div className="accordion-item" key={dino.id}>
-            <h2 className="accordion-header" id={`heading${index}`}>
-              <button
-                className="accordion-button collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target={`#collapse${index}`}
-                aria-expanded="false"
-                aria-controls={`collapse${index}`}
-              >
-                {dino.dinoSpecies}
-              </button>
-            </h2>
-              
-            <div
-              id={`collapse${index}`}
-              className="accordian-collapse collapse"
-              aria-labelledby={`heading${index}`}
-              data-bs-parent="#dinosaurAccorion"
+      <h1>
+        Dinosaur List
+        {currentUser &&
+          (currentUser.roles.includes("ROLE_ADMIN") ||
+            currentUser.roles.includes("ROLE_MODERATOR")) && (
+            <span className="Add">
+              <Link to={`/dino/add`} className="btn btn-info">
+                Add
+              </Link>
+            </span>
+          )}
+      </h1>
+      {dinosaurs.map((dino, index) => (
+        <div className="accordion-item" key={dino.id}>
+          <h2 className="accordion-header" id={`heading${index}`}>
+            <button
+              className="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target={`#collapse${index}`}
+              aria-expanded="false"
+              aria-controls={`collapse${index}`}
             >
-              <div className="accordion body">
-                <p>Species: {dino.dinoSpecies}</p>
-                <p>Era: {dino.dinoEra}</p>
-                <p>Type: {dino.dinoType}</p>
-                <p>Feature: {dino.dinoFeature}</p>
-                <p>Size: {dino.dinoSize}</p>
-                <p>Weight: {dino.dinoWeight}</p>
-                <p>Danger Level: {dino.dinoDangerLevel}</p>
-                <p>Health Status: {dino.dinoHealthStatus}</p>
-                <Link to={`/dino/edit/${dino.id}`} className="btn btn-primary">
-                  Edit
-                </Link>
-                <button
-                  className="btn btn-danger"
-                  onClick={(e) => handleDeleteDino(dino.id)}
-                >
-                  Delete
-                </button>
-              </div>
+              {dino.dinoSpecies}
+            </button>
+          </h2>
+
+          <div
+            id={`collapse${index}`}
+            className="accordian-collapse collapse"
+            aria-labelledby={`heading${index}`}
+            data-bs-parent="#dinosaurAccorion"
+          >
+            <div className="accordion body">
+              <p>Species: {dino.dinoSpecies}</p>
+              <p>Era: {dino.dinoEra}</p>
+              <p>Type: {dino.dinoType}</p>
+              <p>Feature: {dino.dinoFeature}</p>
+              <p>Size: {dino.dinoSize}</p>
+              <p>Weight: {dino.dinoWeight}</p>
+              <p>Danger Level: {dino.dinoDangerLevel}</p>
+              <p>Health Status: {dino.dinoHealthStatus}</p>
+              {currentUser &&
+                (currentUser.roles.includes("ROLE_ADMIN") ||
+                  currentUser.roles.includes("ROLE_MODERATOR")) && (
+                  <>
+                    <Link
+                      to={`/dino/edit/${dino.id}`}
+                      className="btn btn-primary"
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      className="btn btn-danger"
+                      onClick={(e) => handleDeleteDino(dino.id)}
+                    >
+                      Delete
+                    </button>
+                  </>
+                )}
             </div>
           </div>
-        ))}
-      <div>
-        <Link to={`/dino/add`}>Add</Link>
-      </div>
+        </div>
+      ))}
     </div>
   );
 }

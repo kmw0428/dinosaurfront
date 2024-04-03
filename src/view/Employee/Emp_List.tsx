@@ -4,7 +4,8 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS
 import "bootstrap/dist/js/bootstrap.bundle.min"; // Bootstrap JS
 import Swal from "sweetalert2";
-import withReactContent from 'sweetalert2-react-content';
+import withReactContent from "sweetalert2-react-content";
+import { getCurrentUser } from "../../services/AutoService";
 
 // Employee 인터페이스 선언
 interface Employee {
@@ -19,15 +20,26 @@ interface Employee {
   empWorkYear: number;
 }
 
+interface User {
+  id: number;
+  username: string;
+  email: string;
+  roles: string[];
+}
+
 const MySwal = withReactContent(Swal);
 
 function EmployeeList(): JSX.Element {
   // useState 훅을 사용하여 상태 변수 정의
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [selectedEmpId, setSelectedEmpId] = useState<number | null>(null); // 선택된 직원의 ID로 상태 관리
+  const [currentUser, setCurrentUser] = useState<User | null>(getCurrentUser());
 
   // useEffect 훅을 사용하여 컴포넌트가 마운트되었을 때 한 번만 실행되는 로직 정의
   useEffect(() => {
+    const user = getCurrentUser();
+    setCurrentUser(user);
+
     const fetchData = async () => {
       try {
         // API 호출
@@ -38,11 +50,11 @@ function EmployeeList(): JSX.Element {
         MySwal.fire({
           icon: "error",
           title: "Oops...",
-          text: 'API 호출 중 문제가 발생했습니다.',
-          confirmButtonText: '확인'
+          text: "API 호출 중 문제가 발생했습니다.",
+          confirmButtonText: "확인",
         }).then(() => {
           window.location.replace("/");
-      });
+        });
       }
     };
 
@@ -68,7 +80,18 @@ function EmployeeList(): JSX.Element {
 
   return (
     <div className="accordion" id="employeeAccordion">
-      <h1>Employee List</h1>
+      <h1>
+        Employee List{" "}
+        {currentUser &&
+          (currentUser.roles.includes("ROLE_ADMIN") ||
+            currentUser.roles.includes("ROLE_MODERATOR")) && (
+            <span className="Add">
+              <Link to={"/emp/add"} className="btn btn-info">
+                Add
+              </Link>
+            </span>
+          )}
+      </h1>
       {employees.map((emp, index) => (
         <div className="accordion-item" key={emp.id}>
           <h2 className="accordion-header" id={`heading${index}`}>
@@ -98,22 +121,28 @@ function EmployeeList(): JSX.Element {
               <p>Address: {emp.empAddress}</p>
               <p>BirthDay: {emp.empBirth}</p>
               <p>Work-Year: {emp.empWorkYear}</p>
-              <Link to={`/emp/edit/${emp.id}`} className="btn btn-primary">
-                Edit
-              </Link>
-              <button
-                className="btn btn-danger"
-                onClick={(e) => handleDeleteEmp(emp.id)}
-              >
-                Delete
-              </button>
+              {currentUser &&
+                (currentUser.roles.includes("ROLE_ADMIN") ||
+                  currentUser.roles.includes("ROLE_MODERATOR")) && (
+                  <>
+                    <Link
+                      to={`/emp/edit/${emp.id}`}
+                      className="btn btn-primary"
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      className="btn btn-danger"
+                      onClick={(e) => handleDeleteEmp(emp.id)}
+                    >
+                      Delete
+                    </button>
+                  </>
+                )}
             </div>
           </div>
         </div>
       ))}
-      <div>
-        <Link to={"/emp/add"}>Add</Link>
-      </div>
     </div>
   );
 }
