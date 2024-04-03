@@ -17,6 +17,7 @@ interface DinoData {
   dinoDangerLevel: number;
   dinoHealthStatus: number;
 }
+const token = localStorage.getItem('token'); // 로컬 스토리지에서 토큰을 가져옵니다.
 
 const MySwal = withReactContent(Swal);
 
@@ -73,7 +74,11 @@ const Dino_Edit: React.FC = () => {
     });
     if (result.isConfirmed) {
       try {
-        await axios.put(`http://localhost:8080/api/dinosaur/${id}`, dinoData);
+        await axios.put(`http://localhost:8080/api/dinosaur/${id}`, dinoData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         MySwal.fire(
           'Success!',
           'Dinosaur edited successfully!',
