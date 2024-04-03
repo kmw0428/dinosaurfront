@@ -41,3 +41,25 @@
   .Add {
     float: right;
   }
+
+  .red-background {
+    background-color: red;
+  }
+
+  .red-text {
+    text-align: center;
+    color: red;
+  }
+
+  .health {
+    text-align: center;
+  }
+
+  .addFeed {
+    text-align: center;
+  }
+
+  .feedTime {
+    text-align: center;
+    
+  }

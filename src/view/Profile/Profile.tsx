@@ -53,6 +53,10 @@ const Profile = () => {
           })}
       </div>
       <a href="/todolist">To Do List</a>
+      {currentUser &&
+        (currentUser.roles.includes("ROLE_ADMIN")) && (
+          <a href="/admin">Administrate</a>
+        )}
     </div>
   );
 };

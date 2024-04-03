@@ -23,7 +23,7 @@ const Home: React.FC = () => {
       </div>
       <div className="horizontal-list">
         <a href='/dino'>Dinosaur List</a>
-        <>  |  </>
+        <strong>| &nbsp;&nbsp;</strong>
         <a href='/emp'>Employee List</a>
       </div>
     </div>

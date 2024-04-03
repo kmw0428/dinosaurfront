@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 interface Dinosaur {
   dinoSpecies: string;
@@ -12,6 +14,8 @@ interface Dinosaur {
   dinoDangerLevel: number;
   dinoHealthStatus: number;
 }
+
+const MySwal = withReactContent(Swal);
 
 function Dino_Add(): JSX.Element {
   const navigate = useNavigate();
@@ -39,14 +43,30 @@ function Dino_Add(): JSX.Element {
 
   const handleSubmitNewDino = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+    const result = await MySwal.fire({
+      icon: "info",
+      title: "Add",
+      text: "Are you sure to add?",
+      showCancelButton: true,
+      confirmButtonText: "OK",
+      cancelButtonText: "NO, Cancel",
+    });
+    if (result.isConfirmed) {
     try {
       await axios.post("http://localhost:8080/api/dinosaur", newDino);
-      alert("Dinosaur added successfully!");
-      navigate("/dino");
+      MySwal.fire(
+        'Success!',
+        'Employee added successfully!',
+        'success'
+      );
+      navigate(-1);
     } catch (error) {
-      console.error("Failed to add dinosaur", error);
-      alert("Failed to add dinosaur.");
-    }
+      MySwal.fire(
+        'Fail!',
+        'Failed to add employee.',
+        'error'
+      );
+    }}
   };
 
   return (

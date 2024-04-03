@@ -6,7 +6,7 @@
   }
   
   .title {
-    font-size: 500px;
+    font-size: 50px;
   }
   
  .horizontal-list {
@@ -20,12 +20,3 @@
   .horizontal-list a:last-child {
     margin-right: 30px;
   }
-
-.custom-navbar {
-    background-color: #2e2e2e;
-  }
-
-.custom-navbar .nav-link {
-    color: rgb(255, 255, 255);
-  }
-  
