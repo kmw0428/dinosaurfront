@@ -23,20 +23,34 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/emp" element={<EmpPage />} />
-        <Route element={<ProtectedRoute roles={['ROLE_ADMIN', 'ROLE_MODERATOR']} />}>
+        <Route element={<ProtectedRoute roles={['ROLE_ADMIN']} />}>
           <Route path="/emp/edit/:id" element={<EmpEdit />} />
         </Route>
-        <Route path="/emp/add" element={<EmpAdd />} />
+        <Route element={<ProtectedRoute roles={['ROLE_ADMIN']} />}>
+          <Route path="/emp/add" element={<EmpAdd />} />
+        </Route>
         <Route path="/dino" element={<DinoPage />} />
-        <Route path="/dino/edit/:id" element={<DinoEdit />} />
-        <Route path="/dino/add" element={<DinoAdd />} />
+        <Route element={<ProtectedRoute roles={['ROLE_ADMIN']} />}>
+          <Route path="/dino/edit/:id" element={<DinoEdit />} />
+        </Route>
+        <Route element={<ProtectedRoute roles={['ROLE_ADMIN']} />}>
+          <Route path="/dino/add" element={<DinoAdd />} />
+        </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<MainPage />} />
-        <Route path="/todolist" element={<TodoListPage />} />
+        <Route element={<ProtectedRoute roles={['ROLE_ADMIN', 'ROLE_MODERATOR']} />}>
+          <Route path="/todolist" element={<TodoListPage />} />
+        </Route>
         <Route path="/admin" element={<DashBoardPage />} />
-        <Route path="/admin/safety-inspections" element={<Safety />} />
-        <Route path="/admin/health-records" element={<DinoHealth />} />
-        <Route path="/admin/feeding-schedules" element={<DinoFeed />} />
+        <Route element={<ProtectedRoute roles={['ROLE_ADMIN', 'ROLE_MODERATOR']} />}>
+          <Route path="/admin/safety-inspections" element={<Safety />} />
+        </Route>
+        <Route element={<ProtectedRoute roles={['ROLE_ADMIN', 'ROLE_MODERATOR']} />}>
+          <Route path="/admin/health-records" element={<DinoHealth />} />
+        </Route>
+        <Route element={<ProtectedRoute roles={['ROLE_ADMIN', 'ROLE_MODERATOR']} />}>
+          <Route path="/admin/feeding-schedules" element={<DinoFeed />} />
+        </Route>
         <Route path="/profile" element={<ProfilPage />} />
       </Routes>
     </>

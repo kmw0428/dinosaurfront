@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Dashboard() {
   return (
-    <div  className="dashboard-container">
+    <div className="dashboard-container">
     <div className="dashboard-content">
       <h2>관리자 대시보드</h2>
       <ul>

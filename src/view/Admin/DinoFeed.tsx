@@ -3,6 +3,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { getAccessToken } from "../../services/AcceeToken";
+import { getCurrentUser } from "../../services/AutoService";
+import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS
+import "bootstrap/dist/js/bootstrap.bundle.min"; // Bootstrap JS
 
 interface Feed {
   id: number;
@@ -10,16 +13,24 @@ interface Feed {
   feedingDetail: string[];
 }
 
+interface User {
+  id: number;
+  username: string;
+  email: string;
+  roles: string[];
+}
+
 const token = getAccessToken();
 const MySwal = withReactContent(Swal);
 
 function FeedSchedule(): JSX.Element {
   const [schedules, setSchedules] = useState<Feed[]>([]);
-  const [selectFeedId, setSelectedFeedId] = useState<number | null>(null);
   const [selectedTime, setSelectedTime] = useState("");
   const [feedingDetail, setFeedingDetail] = useState("");
-  const [isHovered, setIsHovered] = useState(false);
   const [hoveredFeedId, setHoveredFeedId] = useState<number | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(getCurrentUser());
+  const [dinosaurs, setDinosaurs] = useState<string[]>([]);
+  const [selectedDinoSpecies, setSelectedDinoSpecies] = useState("");
 
   const fetchData = async () => {
     try {
@@ -37,55 +48,82 @@ function FeedSchedule(): JSX.Element {
               ? schedule.feedingDetail.split(",")
               : schedule.feedingDetail,
 
-          feedingTime: schedule.feedingTime ? schedule.feedingTime.substring(0, 5) : "", // HH:mm:ss를 HH:mm으로 변환
+          feedingTime: schedule.feedingTime
+            ? schedule.feedingTime.substring(0, 5)
+            : "", // HH:mm:ss를 HH:mm으로 변환
         })
       );
       setSchedules(formattedData);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       MySwal.fire({
         icon: "error",
         title: "Oops...",
-        text: "API 호출 중 문제가 발생했습니다.",
-        confirmButtonText: "확인",
+        text: "There was a problem calling the API.",
+        confirmButtonText: "Ok",
       }).then(() => {
         window.location.replace("/admin");
       });
     }
   };
 
+  const fetchDino = async () => {
+    try {
+      // API 호출
+      const response = await axios.get("http://localhost:8080/api/dinosaur");
+      // 응답 데이터로 상태 업데이트
+      const species = response.data.map(
+        (dino: { dinoSpecies: any }) => dino.dinoSpecies
+      );
+
+      setDinosaurs(species);
+    } catch (error) {
+      console.log(error);
+      MySwal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "There was a problem calling the API.",
+      });
+    }
+  };
+
   useEffect(() => {
     fetchData();
+    fetchDino();
   }, []);
 
   // 의존성 배열을 빈 배열로 설정하여 컴포넌트 마운트 시에만 호출
 
-    const formattedTime = `${selectedTime}:00`; // HH:mm 형식을 HH:mm:ss 형식으로 변환
-    const detailString = feedingDetail
-      .split(",")
-      .map((detail) => detail.trim())
-      .join(","); // 배열을 문자열로 변환
+  const formattedTime = `${selectedTime}:00`; // HH:mm 형식을 HH:mm:ss 형식으로 변환
+  const detailString = feedingDetail
+    .split(",")
+    .map((detail) => detail.trim())
+    .join(","); // 배열을 문자열로 변환
 
   const handleAddFeed = async () => {
     if (!selectedTime || !feedingDetail) {
       MySwal.fire({
         icon: "warning",
         title: "Oops...",
-        text: "모든 필드를 채워주세요!",
+        text: "Fill in all fields!",
       });
       return;
     }
 
     try {
-      await axios.post("http://localhost:8080/api/schedule", {
-        feedingTime: formattedTime,
-        feedingDetail: detailString,
-      }, {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
+      await axios.post(
+        "http://localhost:8080/api/schedule",
+        {
+          feedingTime: formattedTime,
+          feedingDetail: detailString,
         },
-      });
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       MySwal.fire("Success!", "Feed-Schedule added successfully!", "success");
       fetchData(); // 스케줄 목록을 다시 가져옵니다
       setSelectedTime(""); // 입력 필드 초기화
@@ -138,26 +176,48 @@ function FeedSchedule(): JSX.Element {
 
   return (
     <div>
+      <br/>
       <h2>공룡 급식 스케줄</h2>
-      <div className="addFeed">
-        <select
-          value={selectedTime}
-          onChange={(e) => setSelectedTime(e.target.value)}
-        >
-          <option value="">시간 선택...</option>
-          {times.map((time, index) => (
-            <option key={index} value={time}>
-              {time}
-            </option>
-          ))}
-        </select>
-        <input
-          type="text"
-          placeholder="급식 내용"
-          value={feedingDetail}
-          onChange={(e) => setFeedingDetail(e.target.value)}
-        />
-        <button onClick={handleAddFeed}>추가</button>
+
+      <div className="addFeed container">
+      <div className="row justify-content-md-center">
+        {currentUser && currentUser.roles.includes("ROLE_ADMIN") && (
+          <>
+            <div className="col-md-auto">
+              <select
+                className="form-select"
+                value={selectedTime}
+                onChange={(e) => setSelectedTime(e.target.value)}
+              >
+                <option value="">시간 선택...</option>
+                {times.map((time, index) => (
+                  <option key={index} value={time}>
+                    {time}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="col-md-auto">
+              <select
+                className="form-select "
+                value={feedingDetail}
+                onChange={(e) => setFeedingDetail(e.target.value)}
+              >
+                <option value="">공룡 선택...</option>
+                {dinosaurs.map((species, index) => (
+                  <option key={index} value={species}>
+                    {species}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="col">
+              <button className="btn btn-outline-dark" onClick={handleAddFeed}>
+                추가
+              </button>
+            </div>
+          </>
+        )}</div>
         <table>
           <thead>
             <tr>

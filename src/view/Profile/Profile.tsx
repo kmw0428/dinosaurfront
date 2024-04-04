@@ -52,11 +52,12 @@ const Profile = () => {
             return <p key={index}>{roleName}</p>;
           })}
       </div>
-      <a href="/todolist">To Do List</a>
-      {currentUser &&
-        (currentUser.roles.includes("ROLE_ADMIN")) && (
-          <a href="/admin">Administrate</a>
-        )}
+      {currentUser && currentUser.roles.includes("ROLE_MODERATOR") && (
+        <a href="/todolist">To Do List</a>
+      )}
+      {currentUser && currentUser.roles.includes("ROLE_ADMIN") && (
+        <a href="/admin">관리자</a>
+      )}
     </div>
   );
 };

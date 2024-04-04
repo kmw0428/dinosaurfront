@@ -46,8 +46,8 @@ const Emp_Edit: React.FC = () => {
         setEmpData(response.data);
       } catch (error) {
         MySwal.fire(
-          '실패!',
-          '정보를 불러오는데 실패했습니다.',
+          'Fail!',
+          'Fail to access information',
           'error'
         );
       }
@@ -85,15 +85,15 @@ const Emp_Edit: React.FC = () => {
           },
         });
         MySwal.fire(
-          '저장됨!',
-          '변경 사항이 저장되었습니다.',
+          'Success!',
+          'Employee edited successfully!',
           'success'
         );
         navigate(-1);
       } catch (error) {
         MySwal.fire(
-          '실패!',
-          '정보를 저장하는데 실패했습니다.',
+          'Fail!',
+          'Failed to edit employee.',
           'error'
         );
       }
