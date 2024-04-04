@@ -1,3 +1,5 @@
+# V 2.01 보안에 맞는 페이지 및 기능 접근 추가
+
 ## V 1.19 급식 스케줄 삭제기능 추가
 
 ## V 1.18 급식 스케줄 추가기능 탑제
@@ -39,7 +41,7 @@ npm install react-bootstrap bootstrap
 ## V 1.02 Simple Login/Signup page
 npm install axios
 
-## V 1.01 Frontend Start
+# V 1.01 Frontend Start
 npm install react-router-dom
 
 # Getting Started with Create React App
