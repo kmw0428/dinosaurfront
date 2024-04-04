@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { getAccessToken } from "../../services/AcceeToken";
 
 interface Feed {
   id: number;
@@ -9,6 +10,7 @@ interface Feed {
   feedingDetail: string[];
 }
 
+const token = getAccessToken();
 const MySwal = withReactContent(Swal);
 
 function FeedSchedule(): JSX.Element {
@@ -21,7 +23,12 @@ function FeedSchedule(): JSX.Element {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/schedule");
+      const response = await axios.get("http://localhost:8080/api/schedule", {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const formattedData = response.data.map(
         (schedule: { feedingDetail: any; feedingTime: string | null }) => ({
           ...schedule,
@@ -73,6 +80,11 @@ function FeedSchedule(): JSX.Element {
       await axios.post("http://localhost:8080/api/schedule", {
         feedingTime: formattedTime,
         feedingDetail: detailString,
+      }, {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       MySwal.fire("Success!", "Feed-Schedule added successfully!", "success");
       fetchData(); // 스케줄 목록을 다시 가져옵니다
@@ -102,7 +114,12 @@ function FeedSchedule(): JSX.Element {
     });
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:8080/api/schedule/${feedId}`);
+        await axios.delete(`http://localhost:8080/api/schedule/${feedId}`, {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         MySwal.fire(
           "Success!",
           "Feed-Schedule deleted successfully!",

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { getAccessToken } from "../../services/AcceeToken";
 
 interface Dinosaur {
   dinoSpecies: string;
@@ -15,6 +16,7 @@ interface Dinosaur {
   dinoHealthStatus: number;
 }
 
+const token = getAccessToken();
 const MySwal = withReactContent(Swal);
 
 function Dino_Add(): JSX.Element {
@@ -53,7 +55,12 @@ function Dino_Add(): JSX.Element {
     });
     if (result.isConfirmed) {
     try {
-      await axios.post("http://localhost:8080/api/dinosaur", newDino);
+      await axios.post("http://localhost:8080/api/dinosaur", newDino, {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       MySwal.fire(
         'Success!',
         'Employee added successfully!',

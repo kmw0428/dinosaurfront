@@ -6,6 +6,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min"; // Bootstrap JS
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { getCurrentUser } from "../../services/AutoService";
+import { getAccessToken } from "../../services/AcceeToken";
 
 // 공룡 데이터의 타입 정의
 interface Dinosaur {
@@ -27,6 +28,7 @@ interface User {
   roles: string[];
 }
 
+const token = getAccessToken();
 const MySwal = withReactContent(Swal);
 
 function DinosaurList(): JSX.Element {
@@ -64,7 +66,12 @@ function DinosaurList(): JSX.Element {
     if (window.confirm("Are you sure you want to delete?")) {
       try {
         // 삭제 요청을 서버에 보냅니다.
-        await axios.delete(`http://localhost:8080/api/dinosaur/${dinoId}`);
+        await axios.delete(`http://localhost:8080/api/dinosaur/${dinoId}`, {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         alert("Dinosaur deleted successfully!");
 
         setDinosaurs(dinosaurs.filter((dino) => dino.id !== dinoId));

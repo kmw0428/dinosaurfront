@@ -6,6 +6,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min"; // Bootstrap JS
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { getCurrentUser } from "../../services/AutoService";
+import { getAccessToken } from "../../services/AcceeToken";
 
 // Employee 인터페이스 선언
 interface Employee {
@@ -27,6 +28,7 @@ interface User {
   roles: string[];
 }
 
+const token = getAccessToken();
 const MySwal = withReactContent(Swal);
 
 function EmployeeList(): JSX.Element {
@@ -66,7 +68,12 @@ function EmployeeList(): JSX.Element {
     if (window.confirm("Are you sure you want to delete?")) {
       try {
         // 삭제 요청을 서버에 보냅니다.
-        await axios.delete(`http://localhost:8080/api/employees/${empId}`);
+        await axios.delete(`http://localhost:8080/api/employees/${empId}`, {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         alert("Employee deleted successfully!");
 
         setEmployees(employees.filter((emp) => emp.id !== empId));

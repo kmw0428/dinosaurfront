@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
-
+import { getAccessToken } from "../../services/AcceeToken";
 
 // Employee 인터페이스 선언
 interface Employee {
@@ -19,7 +19,7 @@ interface Employee {
 }
 
 const MySwal = withReactContent(Swal);
-
+const token = getAccessToken();
 const Emp_Edit: React.FC = () => {
   // useParams 훅을 사용하여 URL 파라미터(id) 추출
   const { id } = useParams<{ id: string }>();
@@ -78,7 +78,12 @@ const Emp_Edit: React.FC = () => {
     });
     if (result.isConfirmed) {
       try {
-        await axios.put(`http://localhost:8080/api/employees/${id}`, empData);
+        await axios.put(`http://localhost:8080/api/employees/${id}`, empData, {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         MySwal.fire(
           '저장됨!',
           '변경 사항이 저장되었습니다.',

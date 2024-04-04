@@ -6,6 +6,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min"; // Bootstrap JS
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { getCurrentUser } from "../../services/AutoService";
+import { getAccessToken } from "../../services/AcceeToken";
 
 // 공룡 데이터의 타입 정의
 interface Dinosaur {
@@ -27,6 +28,7 @@ interface User {
   roles: string[];
 }
 
+const token = getAccessToken();
 const MySwal = withReactContent(Swal);
 
 function DinoHealth(): JSX.Element {
@@ -41,7 +43,12 @@ function DinoHealth(): JSX.Element {
     const fetchData = async () => {
       try {
         // API 호출
-        const response = await axios.get("http://localhost:8080/api/dinosaur");
+        const response = await axios.get("http://localhost:8080/api/dinosaur", {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         // 응답 데이터로 상태 업데이트
         setDinosaurs(response.data);
       } catch (error) {

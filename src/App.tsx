@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
 import Navbar from "./view/Main/Navbar";
 import LoginPage from "./view/Signup/index";
 import EmpPage from "./view/Employee/Emp_List";
@@ -22,7 +23,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/emp" element={<EmpPage />} />
-        <Route path="/emp/edit/:id" element={<EmpEdit />} />
+        <Route element={<ProtectedRoute roles={['ROLE_ADMIN', 'ROLE_MODERATOR']} />}>
+          <Route path="/emp/edit/:id" element={<EmpEdit />} />
+        </Route>
         <Route path="/emp/add" element={<EmpAdd />} />
         <Route path="/dino" element={<DinoPage />} />
         <Route path="/dino/edit/:id" element={<DinoEdit />} />
