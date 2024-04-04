@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 interface Emp_Email {
-    addresses: string ;
+    address: string ;
     title: string ;
     message: string ;
 }
@@ -16,7 +16,7 @@ function Email(): JSX.Element {
   const navigate = useNavigate();
 
   const [newEmail, setNewEmail] = useState<Emp_Email>({
-    addresses: "",
+    address: "",
     title: "",
     message: ""
   });
@@ -54,12 +54,12 @@ function Email(): JSX.Element {
           textAlign: "center",
         }}
       >
-      <label htmlFor="addresses">Addresses:</label>
+      <label htmlFor="address">Address:</label>
         <input
         type="text"
-        id="addresses"
-        name="addresses"
-        value={newEmail.addresses}
+        id="address"
+        name="address"
+        value={newEmail.address}
         onChange={handleInputChange}
         />
         <label htmlFor="title">Title:</label>
