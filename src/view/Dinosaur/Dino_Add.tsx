@@ -63,14 +63,14 @@ function Dino_Add(): JSX.Element {
       });
       MySwal.fire(
         'Success!',
-        'Employee added successfully!',
+        'Dinosaur added successfully!',
         'success'
       );
       navigate(-1);
     } catch (error) {
       MySwal.fire(
         'Fail!',
-        'Failed to add employee.',
+        'Failed to add dinosaur.',
         'error'
       );
     }}

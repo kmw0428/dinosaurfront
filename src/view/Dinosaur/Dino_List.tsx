@@ -51,8 +51,8 @@ function DinosaurList(): JSX.Element {
         MySwal.fire({
           icon: "error",
           title: "Oops...",
-          text: "API 호출 중 문제가 발생했습니다.",
-          confirmButtonText: "확인",
+          text: "There was a problem calling the API.",
+          confirmButtonText: "Ok",
         }).then(() => {
           window.location.replace("/");
         });
@@ -63,7 +63,15 @@ function DinosaurList(): JSX.Element {
   }, []); // 의존성 배열을 빈 배열로 설정하여 컴포넌트 마운트 시에만 호출
 
   const handleDeleteDino = async (dinoId: number) => {
-    if (window.confirm("Are you sure you want to delete?")) {
+    const result = await MySwal.fire({
+      icon: "warning",
+      title: "Delete",
+      text: "Are you sure you want to delete?",
+      showCancelButton: true,
+      confirmButtonText: "OK",
+      cancelButtonText: "NO, Cancel",
+    });
+    if (result.isConfirmed) {
       try {
         // 삭제 요청을 서버에 보냅니다.
         await axios.delete(`http://localhost:8080/api/dinosaur/${dinoId}`, {
@@ -72,13 +80,12 @@ function DinosaurList(): JSX.Element {
             Authorization: `Bearer ${token}`,
           },
         });
-        alert("Dinosaur deleted successfully!");
+        MySwal.fire("Success!!", "Dinosaur deleted successfully!", "success");
 
         setDinosaurs(dinosaurs.filter((dino) => dino.id !== dinoId));
         setSelectedDinoId(null);
       } catch (error) {
-        console.error("Failed to delete dinosaur", error);
-        alert("Failed to delete dinosaur.");
+        MySwal.fire("Fail!", "Failed to delete dinosaur.", "error");
       }
     }
   };

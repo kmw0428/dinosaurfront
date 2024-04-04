@@ -52,8 +52,8 @@ function EmployeeList(): JSX.Element {
         MySwal.fire({
           icon: "error",
           title: "Oops...",
-          text: "API 호출 중 문제가 발생했습니다.",
-          confirmButtonText: "확인",
+          text: "There was a problem calling the API.",
+          confirmButtonText: "Ok",
         }).then(() => {
           window.location.replace("/");
         });
@@ -65,7 +65,15 @@ function EmployeeList(): JSX.Element {
 
   // 직원 삭제를 처리하는 함수
   const handleDeleteEmp = async (empId: number) => {
-    if (window.confirm("Are you sure you want to delete?")) {
+    const result = await MySwal.fire({
+      icon: "warning",
+      title: "Delete",
+      text: "Are you sure you want to delete?",
+      showCancelButton: true,
+      confirmButtonText: "OK",
+      cancelButtonText: "NO, Cancel",
+    });
+    if (result.isConfirmed) {
       try {
         // 삭제 요청을 서버에 보냅니다.
         await axios.delete(`http://localhost:8080/api/employees/${empId}`, {
@@ -74,13 +82,12 @@ function EmployeeList(): JSX.Element {
             Authorization: `Bearer ${token}`,
           },
         });
-        alert("Employee deleted successfully!");
+        MySwal.fire("Success!!", "Employee deleted successfully!", "success");
 
         setEmployees(employees.filter((emp) => emp.id !== empId));
         setSelectedEmpId(null);
       } catch (error) {
-        console.error("Failed to delete employee", error);
-        alert("Failed to delete employee.");
+        MySwal.fire("Fail!", "Failed to delete employee.", "error");
       }
     }
   };

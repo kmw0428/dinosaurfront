@@ -55,8 +55,8 @@ function DinoHealth(): JSX.Element {
         MySwal.fire({
           icon: "error",
           title: "Oops...",
-          text: "API 호출 중 문제가 발생했습니다.",
-          confirmButtonText: "확인",
+          text: "There was a problem calling the API.",
+          confirmButtonText: "Ok",
         }).then(() => {
           window.location.replace("/");
         });

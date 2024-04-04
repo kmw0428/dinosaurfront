@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import { getAccessToken } from "../../services/AcceeToken";
 
 interface Employee {
@@ -15,6 +17,7 @@ interface Employee {
 }
 
 const token = getAccessToken();
+const MySwal = withReactContent(Swal);
 
 function Emp_Add(): JSX.Element {
   const navigate = useNavigate();
@@ -47,20 +50,21 @@ function Emp_Add(): JSX.Element {
           Authorization: `Bearer ${token}`,
         },
       });
-      alert("Employee added successfully!");
+      MySwal.fire("Success!", "Employee added successfully!", "success");
       navigate("/emp");
     } catch (error) {
-      console.error("Failed to add employee", error);
-      alert("Failed to add employee.");
+      MySwal.fire("Fail!", "Failed to add employee.", "error");
     }
   };
 
   return (
     <div className="container">
       <br />
-      <h2 className="edit-heading">Add New Employee</h2><br />
+      <h2 className="edit-heading">Add New Employee</h2>
+      <br />
       <form
-        onSubmit={handleSubmitNewEmp} className="edit-form"
+        onSubmit={handleSubmitNewEmp}
+        className="edit-form"
         style={{
           display: "flex",
           flexDirection: "column",
@@ -194,7 +198,9 @@ function Emp_Add(): JSX.Element {
             </tr>
           </tbody>
         </table>
-        <button type="submit" className="btn btn-center">Save</button>
+        <button type="submit" className="btn btn-center">
+          Save
+        </button>
       </form>
     </div>
   );

@@ -64,7 +64,7 @@ function CustomNavbar() {
           {isLoggedIn ? (
             <>
               <Nav.Link as={Link} to="/profile">
-                {JSON.parse(localStorage.getItem("user") || "{}").username ||
+                {JSON.parse(localStorage.getItem("user") || "{}").username.replace(/emp\d*/g, "") + "'s Profile" ||
                   "Profile"}
               </Nav.Link>
               <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
