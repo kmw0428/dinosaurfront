@@ -15,7 +15,6 @@ import Safety from "./view/Admin/Safety";
 import ProfilPage from "./view/Profile/Profile";
 import DinoHealth from "./view/Admin/DinoHealth";
 import DinoFeed from "./view/Admin/DinoFeed";
-import DinoFood from "./view/Admin/DinoFood";
 
 function App() {
   return (
@@ -36,7 +35,6 @@ function App() {
         <Route path="/admin/health-records" element={<DinoHealth />} />
         <Route path="/admin/feeding-schedules" element={<DinoFeed />} />
         <Route path="/profile" element={<ProfilPage />} />
-        <Route path="/food" element={<DinoFood />} />
       </Routes>
     </>
   );
