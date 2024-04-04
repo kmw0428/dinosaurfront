@@ -178,7 +178,7 @@ function FeedSchedule(): JSX.Element {
     <div>
       <br/>
       <h2>공룡 급식 스케줄</h2>
-
+      <br />
       <div className="addFeed container">
       <div className="row justify-content-md-center">
         {currentUser && currentUser.roles.includes("ROLE_ADMIN") && (
