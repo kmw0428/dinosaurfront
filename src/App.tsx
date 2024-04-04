@@ -16,6 +16,7 @@ import Safety from "./view/Admin/Safety";
 import ProfilPage from "./view/Profile/Profile";
 import DinoHealth from "./view/Admin/DinoHealth";
 import DinoFeed from "./view/Admin/DinoFeed";
+import ParkSafety from "./view/Admin/ParkSafety";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
           <Route path="/admin/feeding-schedules" element={<DinoFeed />} />
         </Route>
         <Route path="/profile" element={<ProfilPage />} />
+        <Route path="/parksafety" element={<ParkSafety /> } />
       </Routes>
     </>
   );
