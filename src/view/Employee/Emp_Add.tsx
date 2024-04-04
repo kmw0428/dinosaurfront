@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { getAccessToken } from "../../services/AcceeToken";
 
 interface Employee {
   empName: string;
@@ -12,6 +13,8 @@ interface Employee {
   empBirth: string;
   empWorkYear: number;
 }
+
+const token = getAccessToken();
 
 function Emp_Add(): JSX.Element {
   const navigate = useNavigate();
@@ -38,7 +41,12 @@ function Emp_Add(): JSX.Element {
   const handleSubmitNewEmp = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8080/api/employees", newEmp);
+      await axios.post("http://localhost:8080/api/employees", newEmp, {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       alert("Employee added successfully!");
       navigate("/emp");
     } catch (error) {

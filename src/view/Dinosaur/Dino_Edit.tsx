@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
-
+import { getAccessToken } from "../../services/AcceeToken";
 
 // 공룡 데이터에 대한 타입 정의
 interface DinoData {
@@ -17,8 +17,8 @@ interface DinoData {
   dinoDangerLevel: number;
   dinoHealthStatus: number;
 }
-const token = localStorage.getItem('token'); // 로컬 스토리지에서 토큰을 가져옵니다.
 
+const token = getAccessToken();
 const MySwal = withReactContent(Swal);
 
 const Dino_Edit: React.FC = () => {
@@ -75,6 +75,7 @@ const Dino_Edit: React.FC = () => {
     if (result.isConfirmed) {
       try {
         await axios.put(`http://localhost:8080/api/dinosaur/${id}`, dinoData, {
+          withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
           },
