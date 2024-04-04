@@ -17,6 +17,7 @@ import ProfilPage from "./view/Profile/Profile";
 import DinoHealth from "./view/Admin/DinoHealth";
 import DinoFeed from "./view/Admin/DinoFeed";
 import ParkSafety from "./view/Admin/ParkSafety";
+import Email from "./view/Admin/Email";
 
 function App() {
   return (
@@ -51,6 +52,9 @@ function App() {
         </Route>
         <Route element={<ProtectedRoute roles={['ROLE_ADMIN', 'ROLE_MODERATOR']} />}>
           <Route path="/admin/feeding-schedules" element={<DinoFeed />} />
+        </Route>
+        <Route element={<ProtectedRoute roles={['ROLE_ADMIN']} />}>
+          <Route path="/admin/email" element={<Email />} />
         </Route>
         <Route path="/profile" element={<ProfilPage />} />
         <Route path="/parksafety" element={<ParkSafety /> } />
