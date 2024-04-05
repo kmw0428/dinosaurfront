@@ -176,8 +176,8 @@ function ParkSafety(): JSX.Element {
           </>
         )}
       </div>
-      <table>
-        <thead>
+      <table className="table">
+        <thead className="table-dark">
           <tr>
             <td>Time</td>
             <td>MONDAY</td>
