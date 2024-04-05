@@ -192,7 +192,7 @@ function ParkSafety(): JSX.Element {
         <tbody>
   {times.map((time, timeIndex) => (
     <tr key={timeIndex}>
-      <td className="tbline">{time}</td>
+      <td className="tbline tbcolor">{time}</td>
       {daysOfWeek.map((day, dayIndex) => (
         <td className="tbline" key={`${day}-${dayIndex}`}>
           {inspection.filter(safe => safe.dayOfWeek === day && safe.inspectionTime.startsWith(time))

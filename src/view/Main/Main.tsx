@@ -18,10 +18,11 @@ const Home: React.FC = () => {
   return (
     <div className="container">
       <div className="centered">
-        <p className="title">Welcome to the HomePage</p>
-        <p>You have visited this page <strong>{visits}</strong> times.</p>
+        <br /><br />
+        <p className="title"><strong>Welcome to the HomePage</strong></p>
+        <p className="mainfont">You have visited this page <strong className='visitss'>{visits}</strong> times.</p>
       </div>
-      <div className="horizontal-list">
+      <div className="horizontal-list mainlink">
         <a href='/dino'>Dinosaur List</a>
         <strong>| &nbsp;&nbsp;</strong>
         <a href='/emp'>Employee List</a>

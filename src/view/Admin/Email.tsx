@@ -46,48 +46,47 @@ function Email(): JSX.Element {
   };
 
   return (
-    <div>
-        <form
+    <div className="email-form-container container">
+      <br />
+      <h2><strong>E-mail</strong></h2>
+      <form
         onSubmit={handleSubmitNewEmail}
-        className="edit-form"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          maxWidth: "400px",
-          margin: "auto",
-          textAlign: "center",
-        }}
+        className="edit-forms"
       >
-      <label htmlFor="address">Address:</label>
+        <label htmlFor="address"><strong>Address</strong></label>
         <input
-        type="text"
-        id="address"
-        name="address"
-        value={newEmail.address}
-        onChange={handleInputChange}
+          type="text"
+          id="address"
+          name="address"
+          value={newEmail.address}
+          onChange={handleInputChange}
+          className="input-fields"
         />
-        <label htmlFor="title">Title:</label>
+        <label htmlFor="title"><strong>Title</strong></label>
         <input
-        type="text"
-        id="title"
-        name="title"
-        value={newEmail.title}
-        onChange={handleInputChange}
+          type="text"
+          id="title"
+          name="title"
+          value={newEmail.title}
+          onChange={handleInputChange}
+          className="input-fields"
         />
-        <label htmlFor="message">Message:</label>
+        <label htmlFor="message"><strong>Message</strong></label>
         <input
-        type="text"
-        id="message"
-        name="message"
-        value={newEmail.message}
-        onChange={handleInputChange}
+          type="text"
+          id="message"
+          name="message"
+          value={newEmail.message}
+          onChange={handleInputChange}
+          className="input-fields"
         />
-        <button type="submit" className="btn btn-center">
+        <button type="submit" className="submit-button">
           Send
-        </button></form>
+        </button>
+      </form>
     </div>
   );
+  
 }
 
 export default Email;

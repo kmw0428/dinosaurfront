@@ -71,12 +71,9 @@ table {
 }
 thead {
     display: table-header-group; /* 테이블 헤더 그룹으로 표시 */
+    background-color: #2e2e2e;
+    color: #ffffff;
 }
-
-th {
-    height: 50px; /* 각 열의 높이를 50px로 설정 */
-}
-
 
 th, td {
   padding: 8px; /* 셀 안쪽 여백 설정 */
@@ -87,10 +84,15 @@ th, td {
 .tbline {
   border: 1px solid #a5a5a5 !important; /* 셀 테두리 설정 */
 }
+.tbcolor {
+  background-color: #2e2e2e;
+  color: #ffffff;
+}
 
 th {
   background-color: #333; /* 테이블 헤더 배경색 */
   color: white; /* 테이블 헤더 글자색 */
+  height: 50px; /* 각 열의 높이를 50px로 설정 */
 }
 
 .highlight {
@@ -260,7 +262,7 @@ text-align: center;
 }
 
 .title {
-  font-size: 30px; /* 제목의 폰트 크기를 설정합니다. */
+  font-size: 50px; /* 제목의 폰트 크기를 설정합니다. */
   margin-bottom: 25px; /* 제목과 작업 목록 사이의 간격을 조정합니다. */
 }
 
@@ -294,9 +296,6 @@ text-align: center;
   color: rgb(138, 165, 255); /* 체크된 상태일 때 텍스트의 색상을 변경합니다. */
 }
 
-.title {
-  font-size: 35px;
-}
 
 .horizontal-list {
   display: flex;
@@ -393,4 +392,53 @@ text-align: center;
 
 .change {
   color: rgb(67, 178, 241);
+}
+.email-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.edit-forms {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: auto;
+  text-align: center;
+  width: 700px;
+
+}
+
+.input-fields {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.submit-button {
+  background-color: #505050;
+  color: #fff;
+  padding: 8px;
+  width: 120px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: auto;
+}
+
+.submit-button:hover {
+  background-color: #242424;
+}
+.visitss {
+  color: #ff009d;
+}
+.mainfont {
+  font-size: 30px;
+}
+.mainlink {
+  font-size: 25px;
 }
