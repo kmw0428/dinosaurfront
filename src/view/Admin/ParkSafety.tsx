@@ -176,25 +176,25 @@ function ParkSafety(): JSX.Element {
           </>
         )}
       </div>
-      <table className="table">
-        <thead className="table-dark">
-          <tr>
-            <td>Time</td>
-            <td>MONDAY</td>
-            <td>TUESDAY</td>
-            <td>WEDNESDAY</td>
-            <td>THURSDAY</td>
-            <td>FRIDAY</td>
-            <td>SATURDAY</td>
-            <td>SUNDAY</td>
+      <table>
+        <thead>
+          <tr className="tbline">
+            <td className="tbline">Time</td>
+            <td className="tbline">MONDAY</td>
+            <td className="tbline">TUESDAY</td>
+            <td className="tbline">WEDNESDAY</td>
+            <td className="tbline">THURSDAY</td>
+            <td className="tbline">FRIDAY</td>
+            <td className="tbline">SATURDAY</td>
+            <td className="tbline">SUNDAY</td>
           </tr>
         </thead>
         <tbody>
   {times.map((time, timeIndex) => (
     <tr key={timeIndex}>
-      <td>{time}</td>
+      <td className="tbline">{time}</td>
       {daysOfWeek.map((day, dayIndex) => (
-        <td key={`${day}-${dayIndex}`}>
+        <td className="tbline" key={`${day}-${dayIndex}`}>
           {inspection.filter(safe => safe.dayOfWeek === day && safe.inspectionTime.startsWith(time))
             .map((safe, idx) => (
               <div 

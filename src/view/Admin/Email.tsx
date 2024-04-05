@@ -33,8 +33,13 @@ function Email(): JSX.Element {
     e.preventDefault();
     try {
       await axios.post("http://localhost:8080/api/mail", newEmail);
-      MySwal.fire("Success!", "Email send successfully!", "success");
-      navigate(-1);
+      const result = await MySwal.fire({
+        icon: "success",
+        title: "Success!",
+        text: "Email send successfully!",
+        confirmButtonText: "OK",
+      });
+      if (result.isConfirmed) {navigate(-1);}
     } catch (error) {
       MySwal.fire("Fail!", "Failed to send email.", "error");
     }

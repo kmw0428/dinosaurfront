@@ -97,8 +97,7 @@ function EmployeeList(): JSX.Element {
       <h1>
         Employee List{" "}
         {currentUser &&
-          (currentUser.roles.includes("ROLE_ADMIN") ||
-            currentUser.roles.includes("ROLE_MODERATOR")) && (
+          (currentUser.roles.includes("ROLE_ADMIN")) && (
             <span className="Add">
               <Link to={"/emp/add"} className="btn btn-info">
                 Add
@@ -136,8 +135,7 @@ function EmployeeList(): JSX.Element {
               <p>BirthDay: {emp.empBirth}</p>
               <p>Work-Year: {emp.empWorkYear}</p>
               {currentUser &&
-                (currentUser.roles.includes("ROLE_ADMIN") ||
-                  currentUser.roles.includes("ROLE_MODERATOR")) && (
+                (currentUser.roles.includes("ROLE_ADMIN")) && (
                   <>
                     <Link
                       to={`/emp/edit/${emp.id}`}

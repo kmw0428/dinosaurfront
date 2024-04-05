@@ -24,7 +24,7 @@ const ProtectedRoute = ({ roles }) => {
   } else {
     MySwal.fire(
       'No access!',
-      'You Must Login',
+      'You are not authorized to access',
       'error'
     )
     // 사용자가 필요한 역할을 가지고 있지 않다면 홈페이지로 리다이렉션

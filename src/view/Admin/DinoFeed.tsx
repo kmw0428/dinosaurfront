@@ -169,11 +169,8 @@ function FeedSchedule(): JSX.Element {
     <div>
       <br/>
       <h2>공룡 급식 스케줄</h2>
-      <br />
       <div className="addFeed container">
       <div className="row justify-content-md-center">
-        {currentUser && currentUser.roles.includes("ROLE_ADMIN") && (
-          <>
             <div className="col-md-auto">
               <select
                 className="form-select"
@@ -207,13 +204,12 @@ function FeedSchedule(): JSX.Element {
                 추가
               </button>
             </div>
-          </>
-        )}</div>
+          </div>
         <table>
           <thead>
             <tr>
-              <th>시간</th>
-              <th>급식</th>
+              <th className="tbline">시간</th>
+              <th className="tbline">급식</th>
             </tr>
           </thead>
           <tbody>
@@ -224,8 +220,8 @@ function FeedSchedule(): JSX.Element {
               );
               return (
                 <tr key={index}>
-                  <td>{time}</td>
-                  <td>
+                  <td className="tbline">{time}</td>
+                  <td className="tbline">
                     {currentSchedules.map((schedule, idx) => (
                       <div
                         key={schedule.id}
