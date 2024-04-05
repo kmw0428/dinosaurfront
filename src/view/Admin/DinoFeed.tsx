@@ -101,15 +101,6 @@ function FeedSchedule(): JSX.Element {
     .join(","); // 배열을 문자열로 변환
 
   const handleAddFeed = async () => {
-    if (!selectedTime || !feedingDetail) {
-      MySwal.fire({
-        icon: "warning",
-        title: "Oops...",
-        text: "Fill in all fields!",
-      });
-      return;
-    }
-
     try {
       await axios.post(
         "http://localhost:8080/api/schedule",
