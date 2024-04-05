@@ -23,6 +23,9 @@ function App() {
     <>
       <Navbar />
       <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/profile" element={<ProfilPage />} />
         <Route path="/emp" element={<EmpPage />} />
         <Route element={<ProtectedRoute roles={['ROLE_ADMIN']} />}>
           <Route path="/emp/edit/:id" element={<EmpEdit />} />
@@ -37,25 +40,24 @@ function App() {
         <Route element={<ProtectedRoute roles={['ROLE_ADMIN']} />}>
           <Route path="/dino/add" element={<DinoAdd />} />
         </Route>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/" element={<MainPage />} />
-        <Route element={<ProtectedRoute roles={['ROLE_ADMIN', 'ROLE_MODERATOR']} />}>
+        <Route element={<ProtectedRoute roles={['ROLE_MODERATOR']} />}>
           <Route path="/todolist" element={<TodoListPage />} />
         </Route>
-        <Route path="/admin" element={<DashBoardPage />} />
-        <Route element={<ProtectedRoute roles={['ROLE_ADMIN', 'ROLE_MODERATOR']} />}>
+        <Route element={<ProtectedRoute roles={['ROLE_ADMIN']} />}>
           <Route path="/admin/safety-inspections" element={<ParkSafety />} />
         </Route>
-        <Route element={<ProtectedRoute roles={['ROLE_ADMIN', 'ROLE_MODERATOR']} />}>
+        <Route element={<ProtectedRoute roles={['ROLE_ADMIN']} />}>
           <Route path="/admin/health-records" element={<DinoHealth />} />
         </Route>
-        <Route element={<ProtectedRoute roles={['ROLE_ADMIN', 'ROLE_MODERATOR']} />}>
+        <Route element={<ProtectedRoute roles={['ROLE_ADMIN']} />}>
           <Route path="/admin/feeding-schedules" element={<DinoFeed />} />
+        </Route>
+        <Route element={<ProtectedRoute roles={['ROLE_ADMIN']} />}>
+          <Route path="/admin" element={<DashBoardPage />} />
         </Route>
         <Route element={<ProtectedRoute roles={['ROLE_ADMIN']} />}>
           <Route path="/admin/email" element={<Email />} />
         </Route>
-        <Route path="/profile" element={<ProfilPage />} />
       </Routes>
     </>
   );

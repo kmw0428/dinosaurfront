@@ -95,8 +95,7 @@ function DinosaurList(): JSX.Element {
       <h1>
         Dinosaur List
         {currentUser &&
-          (currentUser.roles.includes("ROLE_ADMIN") ||
-            currentUser.roles.includes("ROLE_MODERATOR")) && (
+          (currentUser.roles.includes("ROLE_ADMIN")) && (
             <span className="Add">
               <Link to={`/dino/add`} className="btn btn-info">
                 Add
@@ -135,8 +134,7 @@ function DinosaurList(): JSX.Element {
               <p>Danger Level: {dino.dinoDangerLevel}</p>
               <p>Health Status: {dino.dinoHealthStatus}</p>
               {currentUser &&
-                (currentUser.roles.includes("ROLE_ADMIN") ||
-                  currentUser.roles.includes("ROLE_MODERATOR")) && (
+                (currentUser.roles.includes("ROLE_ADMIN")) && (
                   <>
                     <Link
                       to={`/dino/edit/${dino.id}`}

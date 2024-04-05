@@ -71,8 +71,11 @@ table {
 }
 
 th, td {
-  border: 1px solid #a5a5a5 !important; /* 셀 테두리 설정 */
   padding: 8px; /* 셀 안쪽 여백 설정 */
+}
+
+.tbline {
+  border: 1px solid #a5a5a5 !important; /* 셀 테두리 설정 */
 }
 
 th {
