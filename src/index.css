@@ -69,9 +69,19 @@ table {
   margin: 0 auto;
   padding: 0px; /* 목록의 패딩을 제거합니다. */
 }
+thead {
+    display: table-header-group; /* 테이블 헤더 그룹으로 표시 */
+}
+
+th {
+    height: 50px; /* 각 열의 높이를 50px로 설정 */
+}
+
 
 th, td {
   padding: 8px; /* 셀 안쪽 여백 설정 */
+  width: 100px;
+  height: 50px;
 }
 
 .tbline {
