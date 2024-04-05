@@ -108,8 +108,8 @@ function ParkSafety(): JSX.Element {
             </div>
           </>
         )}</div>
-      <table>
-        <thead>
+      <table className="table">
+        <thead className="table-dark">
           <tr>
             <td>Time</td>
             <td>MONDAY</td>
@@ -149,10 +149,6 @@ function ParkSafety(): JSX.Element {
           ))}
         </tbody>
       </table>
-      <div>
-        <button className="safe-button">ADD</button>
-        <button className="safe-button">DELETE</button>
-      </div>
     </div>
   );
 }
