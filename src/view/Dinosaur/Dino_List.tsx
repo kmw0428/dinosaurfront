@@ -91,7 +91,7 @@ function DinosaurList(): JSX.Element {
   };
 
   return (
-    <div className="accordion" id="dinosaurAccordion">
+    <div className="accordion" id="dinosaurAccordion" style={{margin: '15px'}}>
       <h1>
         Dinosaur List
         {currentUser &&
@@ -124,7 +124,7 @@ function DinosaurList(): JSX.Element {
             aria-labelledby={`heading${index}`}
             data-bs-parent="#dinosaurAccorion"
           >
-            <div className="accordion body">
+            <div className="accordion body" style={{margin: '15px'}}>
               <p>Species: {dino.dinoSpecies}</p>
               <p>Era: {dino.dinoEra}</p>
               <p>Type: {dino.dinoType}</p>
