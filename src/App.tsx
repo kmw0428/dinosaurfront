@@ -12,7 +12,6 @@ import DinoAdd from "./view/Dinosaur/Dino_Add";
 import MainPage from "./view/Main/Main";
 import TodoListPage from "./view/Employee/Emp_ToDoList";
 import DashBoardPage from "./view/Admin/DashBoard";
-import Safety from "./view/Admin/Safety";
 import ProfilPage from "./view/Profile/Profile";
 import DinoHealth from "./view/Admin/DinoHealth";
 import DinoFeed from "./view/Admin/DinoFeed";
@@ -45,7 +44,7 @@ function App() {
         </Route>
         <Route path="/admin" element={<DashBoardPage />} />
         <Route element={<ProtectedRoute roles={['ROLE_ADMIN', 'ROLE_MODERATOR']} />}>
-          <Route path="/admin/safety-inspections" element={<Safety />} />
+          <Route path="/admin/safety-inspections" element={<ParkSafety />} />
         </Route>
         <Route element={<ProtectedRoute roles={['ROLE_ADMIN', 'ROLE_MODERATOR']} />}>
           <Route path="/admin/health-records" element={<DinoHealth />} />
@@ -57,7 +56,6 @@ function App() {
           <Route path="/admin/email" element={<Email />} />
         </Route>
         <Route path="/profile" element={<ProfilPage />} />
-        <Route path="/parksafety" element={<ParkSafety /> } />
       </Routes>
     </>
   );
