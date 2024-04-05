@@ -106,7 +106,7 @@ function EmployeeList(): JSX.Element {
           )}
       </h1>
       {employees.map((emp, index) => (
-        <div className="accordion-item" key={emp.id}>
+        <div className="accordion-item" key={emp.id} style={{margin: '15px'}}>
           <h2 className="accordion-header" id={`heading${index}`}>
             <button
               className="accordion-button collapsed"
@@ -126,7 +126,7 @@ function EmployeeList(): JSX.Element {
             aria-labelledby={`heading${index}`}
             data-bs-parent="#employeeAccordion"
           >
-            <div className="accordion-body">
+            <div className="accordion-body" style={{margin: '15px'}}>
               <p>Position: {emp.empPosition}</p>
               <p>Department: {emp.empDepart}</p>
               <p>E-mail: {emp.empEmail}</p>
